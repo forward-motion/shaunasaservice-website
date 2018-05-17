@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+
+  app:
+    build: .
+    container_name: shaunasaservice-website
+    image: forward-motion/shaunasaservice-website
+    command: npm run develop
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules

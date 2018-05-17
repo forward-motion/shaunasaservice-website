@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i');
+@import '../variables.scss';
+@import '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
+
+* {
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html, body, h1, h2, h3, h4, h5, ul, ol, li {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.default-template {
+  img {
+    width: 100%;
+  }
+}
