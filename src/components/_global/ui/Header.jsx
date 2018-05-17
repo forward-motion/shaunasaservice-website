@@ -12,7 +12,7 @@ const Header = (props) => {
                 <div className="container">
                     <div className="navbar-header">
                         <Link className="navbar-brand" to="/">
-                            Shaun (as a service)
+                            Shaun (as a <span>service</span>)
                         </Link>
                     </div>
 

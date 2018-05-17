@@ -16,7 +16,7 @@ const Deliverables = (props) => (
                         There's no better way to validate your idea than with <span>real code</span>.
                     </h2>
                     <h3 className="small-text">
-                        Prototypes start at <span>$100</span>.
+                        Prototypes start at <strong>$100</strong>.
                     </h3>
                 </div>
                 <div className="col-md-4">

@@ -20,13 +20,13 @@ const Hero = (props) => (
                         <div className="col-sm-9">
 
                             <h1>
-                                Hi, I'm Shaun. I can help validate your ideas with rapid prototyping.
+                                Hi, I'm Shaun. I can help validate your ideas with <span>rapid prototyping</span>.
                             </h1>
                         </div>
                     </div>
 
                     <h3 className="subtext">
-                        Send me your product idea, and I'll build your prototype in 30 days or less.
+                        Send me your product idea, and I'll send you a prototype in 30 days or less.
                     </h3>
                     <h3 className="tagline">
                         You think it, I build it.

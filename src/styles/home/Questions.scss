@@ -1,17 +1,16 @@
 .questions {
 
   .faq {
-    padding-top: 30px;
-
     h3 {
       transition: color 200ms;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      cursor: pointer;
       span {
         padding-right: 10px;
         font-size: 20px;
         transition: color 200ms;
       }
-      padding-bottom: 10px;
-      cursor: pointer;
     }
     .answer {
       padding-left: 30px;

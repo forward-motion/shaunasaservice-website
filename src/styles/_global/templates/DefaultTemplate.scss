@@ -31,7 +31,7 @@ html, body {
   }
   .large-text {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 20px;
   }
   .small-text {
@@ -43,8 +43,12 @@ html, body {
     background: rgb(108, 99, 255);
     color: white;
     box-shadow: none;
+    &:hover {
+      color: white;
+      background: rgb(181, 176, 255);
+    }
   }
-  .glyphicon {
+  span {
     color: rgb(108, 99, 255);
   }
 }

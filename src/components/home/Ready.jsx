@@ -18,6 +18,11 @@ const Ready = (props) => (
                     <Form />
                 </div>
             </div>
+            <ul>
+                <li><a target="_blank" href="mailto:shaun@shaunasaservice.com">Email</a></li> |
+                <li><a target="_blank" href="https://twitter.com/shaunpersad">Twitter</a></li> |
+                <li><a target="_blank" href="https://github.com/shaunpersad/">GitHub</a></li>
+            </ul>
         </div>
     </div>
 );

@@ -17,7 +17,7 @@ const faqs = [
        question: 'Your process seems very low-touch. And only 280 characters? What gives?',
        answer: (
            <p>
-               In order to keep the focus on rapid prototyping, our process is low-touch, which is perfect for validating ideas.
+               In order to keep the focus on rapid prototyping, the process is low-touch, which is perfect for validating ideas.
                There are no discovery sessions or rounds of revisions.
                Instead, you get inexpensive pure ideation realized as functional code with quick turnaround.
            </p>
@@ -35,7 +35,7 @@ const faqs = [
         )
     },
     {
-        question: 'My MVP is built and I want to turn it into a V1 product. Can you help?',
+        question: 'My MVP is built and I want to turn it into a v1 product. Can you help?',
         answer: (
             <p>
                 I don't generally offer high-touch development services, but feel free to send me an email about it.
@@ -66,16 +66,24 @@ class Faq extends React.Component {
 
         const { question, answer } = this.props;
         const className = `faq ${this.state.expanded ? 'expanded' : 'collapsed'}`;
+        const icon = this.state.expanded ? 'minus' : 'plus';
 
         return (
             <div className="col-xs-12">
-                <div className={className}>
-                    <h3 onClick={this.onClick}>
-                        <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        {question}
-                    </h3>
-                    <div className="answer">
-                        {answer}
+
+                <div className="panel panel-default">
+                    <div className="panel-body">
+
+                        <div className={className}>
+                            <h3 onClick={this.onClick}>
+                                <span className={`glyphicon glyphicon-${icon}`} aria-hidden="true" />
+                                {question}
+                            </h3>
+                            <div className="answer">
+                                {answer}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
