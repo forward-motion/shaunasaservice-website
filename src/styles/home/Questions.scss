@@ -1,0 +1,36 @@
+.questions {
+
+  .faq {
+    padding-top: 30px;
+
+    h3 {
+      transition: color 200ms;
+      span {
+        padding-right: 10px;
+        font-size: 20px;
+        transition: color 200ms;
+      }
+      padding-bottom: 10px;
+      cursor: pointer;
+    }
+    .answer {
+      padding-left: 30px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 500ms;
+    }
+
+    h3:hover {
+      color: rgb(108, 99, 255);
+      span {
+        color: black;
+      }
+    }
+
+    &.expanded {
+      .answer {
+        max-height: 500px;
+      }
+    }
+  }
+}

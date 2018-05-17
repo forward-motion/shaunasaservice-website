@@ -35,16 +35,66 @@ class Form extends React.Component {
         this.setState({ description: e.currentTarget.value });
     }
 
-    render() {
+    get largeForm() {
 
         return (
-            <form className="form" onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
+                <div className="row">
+                    <div className="col-lg-6">
+                        <div className="form-group">
+                            <input
+                                name="name"
+                                type="text"
+                                className="form-control"
+                                placeholder="Your full name" value={this.state.name}
+                                onChange={this.onChangeName}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-lg-6">
+                        <div className="form-group">
+                            <input
+                                name="email"
+                                type="email"
+                                className="form-control"
+                                placeholder="Your email address"
+                                value={this.state.email}
+                                onChange={this.onChangeEmail}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-xs-12">
+
+                        <div className="form-group">
+                    <textarea
+                        className="form-control"
+                        rows={this.props.rows}
+                        placeholder="Description of your product idea in 280 characters"
+                        value={this.state.description}
+                        onChange={this.onChangeDescription}
+                    />
+                        </div>
+
+                        <button type="submit" className="btn">Submit your idea</button>
+
+                    </div>
+                </div>
+
+            </form>
+        );
+
+    }
+
+    get smallForm() {
+
+        return (
+            <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <input
                         name="name"
                         type="text"
                         className="form-control"
-                        placeholder="Your name" value={this.state.name}
+                        placeholder="Your full name" value={this.state.name}
                         onChange={this.onChangeName}
                     />
                 </div>
@@ -62,8 +112,8 @@ class Form extends React.Component {
                 <div className="form-group">
                     <textarea
                         className="form-control"
-                        rows="5"
-                        placeholder="Describe your product idea in 500 words"
+                        rows={this.props.rows}
+                        placeholder="Description of your product idea in 280 characters"
                         value={this.state.description}
                         onChange={this.onChangeDescription}
                     />
@@ -72,8 +122,25 @@ class Form extends React.Component {
                 <button type="submit" className="btn">Submit your idea</button>
             </form>
         );
+
     }
 
+    render() {
+
+        return (
+            <div className="form clearfix">
+                {this.props.large ? this.largeForm : this.smallForm}
+            </div>
+        );
+    }
+
+    static get defaultProps() {
+
+        return {
+            large: true,
+            rows: 3
+        };
+    }
 }
 
 export default Form;

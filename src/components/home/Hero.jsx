@@ -6,44 +6,39 @@ import Form from '../_global/ui/Form.jsx';
 
 import '../../styles/home/Hero.scss';
 
-const Hero = (props) => {
+const Hero = (props) => (
+    <div className="hero">
+        <div className="container">
+            <div className="row">
+                <div className="col-md-8">
 
-    return (
-        <div className="hero">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
 
-                        <h1>
-                            Validate your ideas with rapid prototyping.
-                        </h1>
-
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h2>
-                                    Hi, my name is Shaun.
-                                </h2>
-                            </div>
-                            <div className="col-sm-3">
-                                <img src={hello} alt="hello!" />
-                            </div>
-                            <div className="col-sm-9">
-                                <h3>
-                                    I'm a grizzled full-stack web developer at your service. Send me your product ideas, and I'll build your MVP in 30 days or less.
-                                </h3>
-                            </div>
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <img src={hello} alt="hello!" />
                         </div>
+                        <div className="col-sm-9">
 
+                            <h1>
+                                Hi, I'm Shaun. I can help validate your ideas with rapid prototyping.
+                            </h1>
+                        </div>
+                    </div>
 
-                    </div>
-                    <div className="col-md-6">
-                        <Form />
-                    </div>
+                    <h3 className="subtext">
+                        Send me your product idea, and I'll build your prototype in 30 days or less.
+                    </h3>
+                    <h3 className="tagline">
+                        You think it, I build it.
+                    </h3>
+
+                </div>
+                <div className="col-md-4">
+                    <Form large={false} rows={5} />
                 </div>
             </div>
         </div>
-    );
-
-};
+    </div>
+);
 
 export default Hero;
