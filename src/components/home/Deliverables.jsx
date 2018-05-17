@@ -15,9 +15,6 @@ const Deliverables = (props) => (
                     <h2 className="large-text">
                         There's no better way to validate your idea than with <span>real code</span>.
                     </h2>
-                    <h3 className="small-text">
-                        Prototypes start at <strong>$100</strong>.
-                    </h3>
                 </div>
                 <div className="col-md-4">
                     <img src={landingPages} />
@@ -36,7 +33,11 @@ const Deliverables = (props) => (
                     <h4>
                         Proof-of-concepts
                     </h4>
-
+                </div>
+                <div className="col-xs-12">
+                    <h3 className="large-text">
+                        Prototypes start at <strong>$100</strong>.
+                    </h3>
                 </div>
             </div>
         </div>

@@ -11,16 +11,12 @@ const Header = (props) => {
             <nav className="navbar">
                 <div className="container">
                     <div className="navbar-header">
-                        <Link className="navbar-brand" to="/">
+                        <Link className="navbar-brand active" to="/">
                             Shaun (as a <span>service</span>)
                         </Link>
+                        <span className="navbar-brand">|</span>
+                        <Link className="navbar-brand" to="/blog">Blog</Link>
                     </div>
-
-                    <ul className="nav navbar-nav navbar-right">
-                        <li className="active"><Link to="/">Home</Link></li>
-                        <li><Link to="/blog">Blog</Link></li>
-                    </ul>
-
                 </div>
             </nav>
         </div>

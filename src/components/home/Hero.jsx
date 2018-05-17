@@ -14,7 +14,7 @@ const Hero = (props) => (
 
 
                     <div className="row">
-                        <div className="col-sm-3">
+                        <div className="col-sm-3 hidden-sm hidden-xs">
                             <img src={hello} alt="hello!" />
                         </div>
                         <div className="col-sm-9">
@@ -26,14 +26,14 @@ const Hero = (props) => (
                     </div>
 
                     <h3 className="subtext">
-                        Send me your product idea, and I'll send you a prototype in 30 days or less.
+                        Send me your product idea, and I'll build you a prototype in 30 days or less.
                     </h3>
                     <h3 className="tagline">
                         You think it, I build it.
                     </h3>
 
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 hidden-sm hidden-xs">
                     <Form large={false} rows={5} />
                 </div>
             </div>

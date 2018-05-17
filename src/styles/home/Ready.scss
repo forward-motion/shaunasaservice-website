@@ -2,12 +2,10 @@
   background-image: url("../../assets/img/gplaypattern.png");
   background-repeat: repeat;
   .container {
-    position: relative;
     ul {
-      position: absolute;
-      bottom: 15px;
       width: 100%;
       text-align: center;
+      padding-top: 40px;
       li {
         display: inline;
         list-style-type: none;
