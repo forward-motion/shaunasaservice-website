@@ -1,19 +1,33 @@
 .header {
   background: rgb(108, 99, 255);
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
   a {
-    color: white;
-    font-weight: 300;
+    color: rgb(181, 176, 255);
+    text-decoration: none;
+    span {
+      color: rgb(181, 176, 255);
+      font-style: italic;
+    }
     &:hover, &.active {
-      background: transparent;
-      font-weight: normal;
+      color: white;
+      span {
+        color: white;
+      }
     }
   }
-  .navbar {
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-  span {
-    color: white;
-    font-style: italic;
+
+  ul {
+    li {
+      display: inline;
+      list-style-type: none;
+      padding: 5px;
+    }
+
+    @media (max-width: 767px) {
+      width: 100%;
+      text-align: center;
+    }
   }
 }

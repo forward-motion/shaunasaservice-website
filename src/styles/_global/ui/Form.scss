@@ -1,6 +1,30 @@
 .form {
-  @media (max-width: 991px) {
-
+  text-align: center;
+  .thanks {
     text-align: center;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 200ms;
+    h3 {
+      padding-bottom: 15px;
+    }
+    h4 {
+      padding-top: 15px;
+    }
+    img {
+      max-width: 150px;
+    }
+  }
+
+  &.submitted {
+    .thanks {
+      max-height: 100%;
+      overflow: visible;
+      opacity: 1;
+    }
+    form {
+      display: none;
+    }
   }
 }

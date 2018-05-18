@@ -8,17 +8,17 @@ const Header = (props) => {
 
     return (
         <div className="header">
-            <nav className="navbar">
-                <div className="container">
-                    <div className="navbar-header">
-                        <Link className="navbar-brand active" to="/">
-                            Shaun (as a <span>service</span>)
-                        </Link>
-                        <span className="navbar-brand">|</span>
-                        <Link className="navbar-brand" to="/blog">Blog</Link>
-                    </div>
-                </div>
-            </nav>
+            <div className="container">
+                <ul>
+                    <li>
+                        <Link activeClassName="active" exact to="/">Shaun (<span>as a service</span>)</Link>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <Link activeClassName="active" to="/blog">Blog</Link>
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 };
