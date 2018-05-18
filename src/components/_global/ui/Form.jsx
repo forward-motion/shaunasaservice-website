@@ -210,7 +210,7 @@ class Form extends React.Component {
                     method="POST"
                     onSubmit={this.onSubmit}
                 >
-                    <input className="hidden" name="bot-field" />
+                    <input className="hidden" name="bot-field" defaultValue="" />
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
