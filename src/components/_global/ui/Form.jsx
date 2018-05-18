@@ -36,7 +36,7 @@ class Form extends React.Component {
 
             if (isValid) {
                 // TODO: submit
-                
+
                 const data = {
                     name: this.state.name,
                     email: this.state.email,
@@ -51,7 +51,7 @@ class Form extends React.Component {
                 const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
                 xhr.open('POST', '/');
-                xhr.onreadystatechange = function() {
+                xhr.onreadystatechange = () => {
 
                     if (xhr.readyState > 3 && xhr.status === 200) {
 
@@ -139,6 +139,7 @@ class Form extends React.Component {
         return (
             <div className={`form-group${this.state.errors.description ? ' has-error' : ''}`}>
                 <textarea
+                    name="description"
                     className="form-control"
                     rows={this.props.rows}
                     placeholder="Description of your product idea in 280 characters"
