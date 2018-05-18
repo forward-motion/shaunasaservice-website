@@ -33,7 +33,7 @@ const DefaultTemplate = (props) => {
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Shaun (as a service) - You think it, I build it." />
                 <meta property="og:description" content={`Send me your product idea, and I'll build you a prototype in 30 days or less.`} />
-                <meta property="og:image" content="/shaun-as-a-service-shareable.png" />
+                <meta property="og:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable.png" />
 
             </Helmet>
 
