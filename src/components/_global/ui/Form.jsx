@@ -36,25 +36,21 @@ class Form extends React.Component {
 
             if (isValid) {
                 // TODO: submit
-
-                console.log(e.currentTarget);
-
+                
                 const data = {
                     name: this.state.name,
                     email: this.state.email,
                     description: this.state.description,
-                    ['form-name']: e.currentTarget.name
+                    ['form-name']: this.props.formName
                 };
 
-                const params = Object.keys(data).map(
-                    function(key){
+                const params = Object.keys(data).map(key => {
                         return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-                    }
-                ).join('&');
+                    }).join('&');
 
                 const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
-                xhr.open('POST', e.currentTarget.action);
+                xhr.open('POST', '/');
                 xhr.onreadystatechange = function() {
 
                     if (xhr.readyState > 3 && xhr.status === 200) {
@@ -204,7 +200,7 @@ class Form extends React.Component {
         return (
             <div className={`form clearfix${this.state.submitted ? ' submitted' : ''}`}>
                 {this.thanks}
-                <form name="applications" data-netlify="true" method="POST" onSubmit={this.onSubmit}>
+                <form name={this.props.formName} data-netlify="true" method="POST" onSubmit={this.onSubmit}>
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
@@ -216,7 +212,8 @@ class Form extends React.Component {
 
         return {
             large: true,
-            rows: 3
+            rows: 3,
+            formName: 'applications'
         };
     }
 }
