@@ -5,10 +5,19 @@ module.exports = {
     plugins: [
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-sass',
+        `gatsby-transformer-remark`,
+        {
+            resolve: `gatsby-source-contentful`,
+            options: {
+                spaceId: process.env.CONTENTFUL_SPACE_ID,
+                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+                host: process.env.CONTENTFUL_HOST
+            },
+        },
         {
             resolve: `gatsby-plugin-google-analytics`,
             options: {
-                trackingId: "UA-118354853-2",
+                trackingId: process.env.GOOGLE_ANALYTICS_ID,
                 // Puts tracking script in the head instead of the body
                 head: false,
                 // Setting this parameter is optional
@@ -20,7 +29,7 @@ module.exports = {
         {
             resolve: `gatsby-plugin-facebook-pixel`,
             options: {
-                pixelId: '2063281123996963',
+                pixelId: process.env.FACEBOOK_PIXEL_ID,
             },
         },
     ],

@@ -6,6 +6,8 @@ services:
     container_name: shaunasaservice-website
     image: forward-motion/shaunasaservice-website
     command: npm run develop
+    env_file:
+        - .env
     ports:
       - '8000:8000'
     volumes:
