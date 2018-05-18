@@ -203,7 +203,14 @@ class Form extends React.Component {
         return (
             <div className={`form clearfix${this.state.submitted ? ' submitted' : ''}`}>
                 {this.thanks}
-                <form name={this.props.formName} data-netlify="true" method="POST" onSubmit={this.onSubmit}>
+                <form
+                    name={this.props.formName}
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    method="POST"
+                    onSubmit={this.onSubmit}
+                >
+                    <input className="hidden" name="bot-field" />
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
