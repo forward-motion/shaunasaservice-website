@@ -14,7 +14,7 @@ const steps = [
         component: (
             <div>
                 <h4>
-                    Apply using the form here. I need:
+                    Apply using this form:
                 </h4>
                 <div>
                     <Form rows={2} />
@@ -54,20 +54,20 @@ const steps = [
         component: (
             <div>
                 <h4>
-                    You then select your preferred option. Options are in the range of:
+                    You then select your preferred option, which are in the range of:
                 </h4>
                 <ul>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        low: $100 - $1500, 1-2 weeks
+                        <strong>low</strong>: $100 - $1500 | 1-2 weeks
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        medium: $1500 - $3000, 2-3 weeks
+                        <strong>medium</strong>: $1500 - $3000 | 2-3 weeks
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        high: $3000 - $4500, 3-4 weeks
+                        <strong>high</strong>: $3000 - $4500 | 3-4 weeks
                     </li>
                 </ul>
                 <p>
@@ -98,7 +98,7 @@ const steps = [
                     </li>
                 </ul>
                 <p>
-                    You also get a chance to submit revisions.
+                    You also get a chance to submit revisions and other feedback.
                 </p>
             </div>
         ),

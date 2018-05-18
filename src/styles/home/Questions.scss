@@ -17,6 +17,13 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 500ms;
+      @media (max-width: 991px) {
+
+        padding-left: 0;
+      }
+      div {
+        padding-top: 10px;
+      }
     }
 
     h3:hover {

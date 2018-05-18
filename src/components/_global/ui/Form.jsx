@@ -36,18 +36,44 @@ class Form extends React.Component {
 
             if (isValid) {
                 // TODO: submit
-                setTimeout(() => {
 
-                    this.setState({ submitted: true }, () => {
+                console.log(e.currentTarget);
 
-                        setTimeout(() => {
+                const data = {
+                    name: this.state.name,
+                    email: this.state.email,
+                    description: this.state.description,
+                    ['form-name']: e.currentTarget.name
+                };
 
-                            this.setState({ submitted: false });
+                const params = Object.keys(data).map(
+                    function(key){
+                        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+                    }
+                ).join('&');
 
-                        }, 5000);
-                    });
+                const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
-                }, 500);
+                xhr.open('POST', e.currentTarget.action);
+                xhr.onreadystatechange = function() {
+
+                    if (xhr.readyState > 3 && xhr.status === 200) {
+
+
+                        this.setState({ submitted: true }, () => {
+
+                            setTimeout(() => {
+
+                                this.setState({ submitted: false });
+
+                            }, 5000);
+                        });
+                    }
+                };
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send(params);
+
             }
         });
     }
@@ -145,34 +171,30 @@ class Form extends React.Component {
     get largeForm() {
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <div className="row">
-                    <div className="col-lg-6">
-                        {this.nameField}
-                    </div>
-                    <div className="col-lg-6">
-                        {this.emailField}
-                    </div>
-                    <div className="col-xs-12">
-                        {this.descriptionField}
-                        <button type="submit" className="btn">Submit your idea</button>
-                    </div>
+            <div className="row">
+                <div className="col-lg-6">
+                    {this.nameField}
                 </div>
-
-            </form>
+                <div className="col-lg-6">
+                    {this.emailField}
+                </div>
+                <div className="col-xs-12">
+                    {this.descriptionField}
+                    <button type="submit" className="btn">Submit your idea</button>
+                </div>
+            </div>
         );
-
     }
 
     get smallForm() {
 
         return (
-            <form onSubmit={this.onSubmit}>
+            <div>
                 {this.nameField}
                 {this.emailField}
                 {this.descriptionField}
                 <button type="submit" className="btn">Submit your idea</button>
-            </form>
+            </div>
         );
 
     }
@@ -182,7 +204,10 @@ class Form extends React.Component {
         return (
             <div className={`form clearfix${this.state.submitted ? ' submitted' : ''}`}>
                 {this.thanks}
-                {this.props.large ? this.largeForm : this.smallForm}
+                <form name="applications" data-netlify="true" method="POST" onSubmit={this.onSubmit}>
+                    {this.props.large ? this.largeForm : this.smallForm}
+                </form>
+
             </div>
         );
     }

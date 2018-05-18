@@ -6,41 +6,65 @@ const faqs = [
     {
         question: 'Who are you, and why should I trust you with my ideas?',
         answer: (
-            <p>
-                I'm a full-stack web developer whose worked on several web projects in and out of my 8+ years tenure working for fast-paced digital agencies and my own freelance clients.
-                I've worked with individuals, startups, and large media conglomerates alike.
-                I'm well-versed in PHP, node.js, and the wild west of front-end JavaScript. See the full list of technologies I work with here.
-            </p>
+            <div>
+                <p>
+                    I'm a full-stack web developer with countless web projects under my belt. For 8+ years I've worked for fast-paced digital agencies and my own freelance clients.
+                </p>
+                <p>
+                    My clients have included individuals, startups, and large media conglomerates alike.
+                </p>
+                <p>
+                    I'm well-versed in several back-end and front-end technologies, of which there are too many to list in this space. Node.js and React are my favorites at the moment.
+                </p>
+            </div>
         )
     },
     {
        question: 'Your process seems very low-touch. And only 280 characters? What gives?',
        answer: (
-           <p>
-               In order to keep the focus on rapid prototyping, the process is low-touch, which is perfect for validating ideas.
-               There are no discovery sessions or rounds of revisions.
-               Instead, you get inexpensive pure ideation realized as functional code with quick turnaround.
-           </p>
+           <div>
+               <p>
+                   <p>
+                       In order to keep the focus on rapid prototyping, the process is low-touch, which is perfect for quickly validating ideas.
+                   </p>
+                   <p>
+                       There are no discovery sessions or several rounds of revisions. Instead, you get inexpensive pure ideation realized as functional code with quick turnaround.
+                   </p>
+                   <p>
+                       280 characters was chosen because it's Twitter's character limit. If you can't describe your MVP (minimum viable product) in a tweet, then chances are you're not actually describing an MVP.
+                   </p>
+               </p>
+           </div>
        )
     },
     {
-        question: 'What if I have feedback after the product is delivered?',
+        question: 'How is feedback handled?',
         answer: (
-            <p>
-                Bugs that cause the agreed upon QA criteria to fail are fixed for free.
-                Bugs that are outside the scope of the QA criteria are handled by a change work order.
-                Visual feedback or new features are also handled by a change work order.
-                Change work orders allow the scope of the project to change, thus usually increasing any combination of price, timeline, and features and functionality.
-            </p>
+            <div>
+                <p>
+                    Feedback is generally only accepted after development is complete and before your invoice is sent.
+                </p>
+                <p>
+                    Bugs that cause the agreed upon QA criteria to fail are fixed for free. Minor visual changes are also done for free (at my discretion).
+                </p>
+                <p>
+                    Bugs that are outside the scope of the QA criteria are handled by additional line items to your invoice.
+                    Major visual feedback or new features also add line items to your invoice.
+                </p>
+            </div>
         )
     },
     {
-        question: 'My MVP is built and I want to turn it into a v1 product. Can you help?',
+        question: `What if I want a fully-designed and developed product instead of a prototype?`,
         answer: (
-            <p>
-                I don't generally offer high-touch development services, but feel free to send me an email about it.
-                If I can't help, I will send you a list of other developers or agencies that can help you out.
-            </p>
+            <div>
+                <p>
+                    I don't generally offer high-touch development services, but feel free to send me an email about it.
+                </p>
+                <p>
+                    If I can't help, I will send you a list of other developers or agencies that can help you out.
+                </p>
+            </div>
         )
     }
 
