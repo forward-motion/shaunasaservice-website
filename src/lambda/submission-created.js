@@ -9,6 +9,7 @@ exports.handler = function submissionCreated(event, context, callback) {
     const data = JSON.stringify({
         email: request.payload.data.email,
         first_name: request.payload.data.name,
+        name: request.payload.data.name,
         api_key: process.env.GATSBY_CONVERTKIT_API_KEY
     });
 
