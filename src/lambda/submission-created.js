@@ -2,8 +2,9 @@ const http = require('https');
 
 exports.handler = function submissionCreated(event, context, callback) {
 
+    console.log('hello?');
+
     console.log('event', event);
-    console.log('context', context);
 
     let body = '';
 
