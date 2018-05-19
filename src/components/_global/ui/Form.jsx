@@ -35,7 +35,6 @@ class Form extends React.Component {
         this.validate((isValid) => {
 
             if (isValid) {
-                // TODO: submit
 
                 const data = {
                     name: this.state.name,

@@ -14,6 +14,10 @@ const client = createClient({
     host: process.env.GATSBY_CONTENTFUL_HOST
 });
 
+const STATE_INACTIVE = 0;
+const STATE_SUBMITTING = 1;
+const STATE_SUBMITTED = 2;
+
 class BlogPage extends React.Component {
 
     constructor(props) {
@@ -24,7 +28,7 @@ class BlogPage extends React.Component {
             posts: null,
             page: 1,
             email: '',
-            submitted: false
+            submitState: STATE_INACTIVE
         };
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -67,34 +71,32 @@ class BlogPage extends React.Component {
 
         e.preventDefault();
 
-        const data = {
-            email: this.state.email,
-            api_key: process.env.GATSBY_CONVERTKIT_API_KEY
-        };
+        fbq('track', 'Lead');
 
-        const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        this.setState({
+            submitState: STATE_SUBMITTING
+        }, () => {
 
-        xhr.open('POST', `https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`);
-        xhr.onreadystatechange = () => {
+            const data = {
+                email: this.state.email,
+                api_key: process.env.GATSBY_CONVERTKIT_API_KEY
+            };
 
-            if (xhr.readyState > 3 && xhr.status === 200) {
+            const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
+            xhr.open('POST', `https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`);
+            xhr.onreadystatechange = () => {
 
-                this.setState({ submitted: true }, () => {
+                if (xhr.readyState > 3 && xhr.status === 200) {
 
-                    fbq('track', 'Lead');
+                    this.setState({ submitState: STATE_SUBMITTED });
+                }
+            };
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+            xhr.send(JSON.stringify(data));
 
-                    setTimeout(() => {
-
-                        this.setState({ submitted: false });
-
-                    }, 5000);
-                });
-            }
-        };
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        xhr.send(JSON.stringify(data));
+        });
     }
 
     onSearch(e) {
@@ -157,6 +159,16 @@ class BlogPage extends React.Component {
 
     render() {
 
+        let subscribeButton = 'Subscribe';
+        switch (this.state.submitState) {
+            case STATE_SUBMITTING:
+                subscribeButton = 'Submitting...';
+                break;
+            case STATE_SUBMITTED:
+                subscribeButton = 'Submitted!';
+                break;
+        }
+
         return (
             <div className="blog-page">
 
@@ -187,7 +199,13 @@ class BlogPage extends React.Component {
                                         />
 
                                     </div>
-                                    <button type="submit" className="btn">Subscribe</button>
+                                    <button
+                                        type="submit"
+                                        className="btn"
+                                        disabled={this.state.submitState > STATE_INACTIVE}
+                                    >
+                                        {subscribeButton}
+                                    </button>
                                 </form>
                             </div>
                         </div>
