@@ -4,8 +4,7 @@ exports.handler = function submissionCreated(event, context, callback) {
 
 
     console.log('hello?');
-    console.log('event', Object.keys(event));
-    console.log('context', Object.keys(context));
+    console.log('event', event.body);
 
     callback(null, {
         statusCode: 200
