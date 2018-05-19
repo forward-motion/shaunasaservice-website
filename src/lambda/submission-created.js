@@ -4,7 +4,8 @@ exports.handler = function submissionCreated(event, context, callback) {
 
 
     console.log('hello?');
-    console.log('event', Object.keys(event.body));
+    console.log('isBase64', event.isBase64Encoded);
+    console.log('event', event.body);
 
     callback(null, {
         statusCode: 200
