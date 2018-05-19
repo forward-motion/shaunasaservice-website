@@ -1,3 +1,51 @@
 .blog-page {
 
+  .hero {
+
+    text-align: center;
+    h1 {
+      padding-bottom: 30px;
+    }
+    img {
+      width: 200px;
+    }
+
+    padding-bottom: 80px;
+
+    .form-group {
+      padding-top: 30px;
+      input {
+        height: 50px;
+        font-size: 24px;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .blog-post-summary {
+
+    .media-object {
+      width: 200px;
+      min-height: 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    h3 {
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .sidebar {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 500px;
+  }
 }
