@@ -5,6 +5,8 @@ import {createClient} from 'contentful';
 
 import blogging from '../../assets/img/blogging.svg';
 
+import Contact from '../_global/ui/Contact.jsx';
+
 import '../../styles/blog/BlogPage.scss';
 
 
@@ -25,39 +27,82 @@ class BlogPage extends React.Component {
 
         this.state = {
             query: '',
-            posts: null,
+            posts: [],
             page: 1,
             email: '',
-            submitState: STATE_INACTIVE
+            submitState: STATE_INACTIVE,
+            underFold: false,
+            isQuerying: true,
+            moreToLoad: true
         };
 
+        this.onScroll = this.onScroll.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onSubscribe = this.onSubscribe.bind(this);
         this.onSearch = this.onSearch.bind(this);
+        this.onClearSearch = this.onClearSearch.bind(this);
+        this.onLoadMore = this.onLoadMore.bind(this);
 
         this.debouncedSearch = debounce(() => {
 
-            const limit = 50;
-            const skip = limit * (this.state.page - 1);
+            this.setState({
+                isQuerying: true
+            }, () => {
 
-            client.getEntries({
-                limit,
-                skip,
-                content_type: 'blog-post',
-                query: this.state.query
-            }).then((response) => {
+                const limit = 50;
+                const skip = limit * (this.state.page - 1);
 
-                this.setState({
-                    posts: response.items
-                });
+                client.getEntries({
+                    limit,
+                    skip,
+                    content_type: 'blog-post',
+                    query: this.state.query
+                }).then((response) => {
 
-            }).catch(console.error);
+                    this.setState({
+                        posts: this.state.posts.concat(response.items),
+                        isQuerying: false,
+                        moreToLoad: this.state.posts.length + response.items.length < response.total
+                    });
+
+                }).catch(console.error);
+
+            });
+
         }, 500);
+    }
+
+    onScroll() {
+
+        if (window.scrollY > (this.subscribeDiv.offsetTop + this.subscribeDiv.offsetHeight)) {
+
+            if (!this.state.underFold) {
+                this.setState({
+                    underFold: true
+                });
+            }
+
+        } else {
+
+            if (this.state.underFold) {
+                this.setState({
+                    underFold: false
+                });
+            }
+        }
     }
 
     componentDidMount() {
 
         this.search();
+
+        this.fbq = window.fbq || (() => console.log('fake fbq'));
+
+        window.addEventListener('scroll', this.onScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
     }
 
     onChangeEmail(e) {
@@ -71,7 +116,7 @@ class BlogPage extends React.Component {
 
         e.preventDefault();
 
-        fbq('track', 'Lead');
+        this.fbq('track', 'Lead');
 
         this.setState({
             submitState: STATE_SUBMITTING
@@ -104,7 +149,7 @@ class BlogPage extends React.Component {
         const query = e.currentTarget.value;
 
         if (query.length > 1) {
-            fbq('track', 'Search', {
+            this.fbq('track', 'Search', {
                 search_string: query
             });
         }
@@ -114,10 +159,29 @@ class BlogPage extends React.Component {
         });
     }
 
+    onClearSearch(e) {
+
+        this.setState({
+            query: ''
+        }, () => {
+            this.search();
+        });
+    }
+
+    onLoadMore(e) {
+
+        this.setState({
+            page: this.state.page + 1
+        }, () => {
+
+            this.debouncedSearch();
+        });
+    }
+
     search() {
 
         this.setState({
-            posts: null,
+            posts: [],
             page: 1
         }, () => {
             this.debouncedSearch();
@@ -125,14 +189,6 @@ class BlogPage extends React.Component {
     }
 
     get posts() {
-
-        if (!this.state.posts) {
-            return (
-                <li>
-                    loading...
-                </li>
-            );
-        }
 
         return this.state.posts.map(({fields: post}) => (
             <li key={post.slug}>
@@ -157,7 +213,7 @@ class BlogPage extends React.Component {
         ));
     }
 
-    render() {
+    get sidebar() {
 
         let subscribeButton = 'Subscribe';
         switch (this.state.submitState) {
@@ -170,9 +226,44 @@ class BlogPage extends React.Component {
         }
 
         return (
+            <div className="sidebar-content">
+                <form onSubmit={this.onSubscribe}>
+                    <div className="input-group">
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Enter email to subscribe"
+                            value={this.state.email}
+                            onChange={this.onChangeEmail}
+                        />
+                        <span className="input-group-btn">
+                        <button
+                            type="submit"
+                            className="btn"
+                            disabled={this.state.submitState > STATE_INACTIVE}
+                        >
+                            {subscribeButton}
+                        </button>
+                    </span>
+                    </div>
+                </form>
+                <div className="cta">
+                    Got a product idea? <Link to="/">Let's talk.</Link>
+                </div>
+                <Contact />
+            </div>
+        );
+    }
+
+    render() {
+
+        return (
             <div className="blog-page">
 
-                <div className="hero">
+                <div
+                    className="hero"
+                    ref={(div => { this.subscribeDiv = div })}
+                >
 
                     <div className="container">
 
@@ -188,54 +279,61 @@ class BlogPage extends React.Component {
                         <div className="row">
                             <div className="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
-                                <form className="form-inline" onSubmit={this.onSubscribe}>
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            placeholder="Get blog updates"
-                                            value={this.state.email}
-                                            onChange={this.onChangeEmail}
-                                        />
-
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="btn"
-                                        disabled={this.state.submitState > STATE_INACTIVE}
-                                    >
-                                        {subscribeButton}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div className="posts">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-8 col-md-8">
-                                <ul>
-                                    {this.posts}
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="container sidebar">
-                        <div className="row">
-                            <div className="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8">
                                 <div className="form-group">
                                     <input
                                         className="form-control"
                                         type="text"
-                                        placeholder="Search"
+                                        placeholder="Looking for something? Search here."
                                         value={this.state.query}
                                         onChange={this.onSearch}
                                     />
+                                    <button
+                                        type="button"
+                                        className={this.state.query.length  > 0 ? '' : 'hidden'}
+                                        onClick={this.onClearSearch}
+                                    >
+                                        <span className="glyphicon glyphicon-remove" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`${this.state.underFold ? 'sidebar hidden-xs hidden-sm' : 'hidden'}`}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8">
+                                {this.sidebar}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="content">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-8 col-md-8">
+                                <ul className="posts">
+                                    {this.posts}
+                                </ul>
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <div className="load-more">
+                                            <button
+                                                className={`btn${this.state.moreToLoad ? '' : ' hidden'}`}
+                                                onClick={this.onLoadMore}
+                                                disabled={this.state.isQuerying}
+                                            >
+                                                {this.state.isQuerying ? 'Loading...' : 'Load more'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-4">
+                                <div className={this.state.underFold ? 'hidden' : 'mini-sidebar hidden-xs hidden-sm'}>
+                                    {this.sidebar}
                                 </div>
                             </div>
                         </div>

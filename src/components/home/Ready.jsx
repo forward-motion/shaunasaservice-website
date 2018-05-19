@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Form from '../_global/ui/Form.jsx';
+import Contact from '../_global/ui/Contact.jsx';
 
 import '../../styles/home/Ready.scss';
 
@@ -16,11 +17,7 @@ const Ready = (props) => (
                 </div>
                 <div className="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                     <Form />
-                    <ul>
-                        <li><a target="_blank" href="mailto:shaun@shaunasaservice.com">Email</a></li> |
-                        <li><a target="_blank" href="https://twitter.com/shaunpersad">Twitter</a></li> |
-                        <li><a target="_blank" href="https://github.com/shaunpersad/">GitHub</a></li>
-                    </ul>
+                    <Contact />
                 </div>
             </div>
         </div>

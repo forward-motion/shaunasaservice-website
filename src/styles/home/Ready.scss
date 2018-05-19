@@ -1,19 +1,7 @@
 .ready {
   background-image: url("../../assets/img/gplaypattern.png");
   background-repeat: repeat;
-  .container {
-    ul {
-      width: 100%;
-      text-align: center;
-      padding-top: 40px;
-      li {
-        display: inline;
-        list-style-type: none;
-        padding: 5px;
-        a {
-          color: rgb(108, 99, 255);
-        }
-      }
-    }
+  .contact {
+    padding-top: 40px;
   }
 }

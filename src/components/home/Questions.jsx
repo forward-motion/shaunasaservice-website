@@ -24,15 +24,13 @@ const faqs = [
        answer: (
            <div>
                <p>
-                   <p>
-                       In order to keep the focus on rapid prototyping, the process is low-touch, which is perfect for quickly validating ideas.
-                   </p>
-                   <p>
-                       There are no discovery sessions or several rounds of revisions. Instead, you get inexpensive pure ideation realized as functional code with quick turnaround.
-                   </p>
-                   <p>
-                       280 characters was chosen because it's Twitter's character limit. If you can't describe your MVP (minimum viable product) in a tweet, then chances are you're not actually describing an MVP.
-                   </p>
+                   In order to keep the focus on rapid prototyping, the process is low-touch, which is perfect for quickly validating ideas.
+               </p>
+               <p>
+                   There are no discovery sessions or several rounds of revisions. Instead, you get inexpensive pure ideation realized as functional code with quick turnaround.
+               </p>
+               <p>
+                   280 characters was chosen because it's Twitter's character limit. If you can't describe your MVP (minimum viable product) in a tweet, then chances are you're not actually describing an MVP.
                </p>
            </div>
        )

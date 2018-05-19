@@ -1,0 +1,13 @@
+ul.contact {
+  width: 100%;
+  text-align: center;
+  li {
+    display: inline;
+    list-style-type: none;
+    padding: 5px;
+    font-size: 12px;
+    a {
+      color: rgb(108, 99, 255);
+    }
+  }
+}

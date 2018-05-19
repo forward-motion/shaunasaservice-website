@@ -4,6 +4,10 @@ import thanks from '../../../assets/img/thanks.svg';
 
 import '../../../styles/_global/ui/Form.scss';
 
+const STATE_INACTIVE = 0;
+const STATE_SUBMITTING = 1;
+const STATE_SUBMITTED = 2;
+
 class Form extends React.Component {
 
     constructor(props) {
@@ -19,13 +23,17 @@ class Form extends React.Component {
                 description: false
             },
             shouldValidate: false,
-            submitted: false
+            submitState: STATE_INACTIVE
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
+    }
 
+    componentDidMount() {
+
+        this.fbq = window.fbq || (() => console.log('fake fbq'));
     }
 
     onSubmit(e) {
@@ -36,41 +44,38 @@ class Form extends React.Component {
 
             if (isValid) {
 
-                const data = {
-                    name: this.state.name,
-                    email: this.state.email,
-                    description: this.state.description,
-                    ['form-name']: this.props.formName
-                };
+                this.setState({
+                    submitState: STATE_SUBMITTING
+                }, () => {
 
-                const params = Object.keys(data).map(key => {
+                    const data = {
+                        name: this.state.name,
+                        email: this.state.email,
+                        description: this.state.description,
+                        ['form-name']: this.props.formName
+                    };
+
+                    const params = Object.keys(data).map(key => {
                         return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
                     }).join('&');
 
-                const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
-                xhr.open('POST', '/');
-                xhr.onreadystatechange = () => {
+                    xhr.open('POST', '/');
+                    xhr.onreadystatechange = () => {
 
-                    if (xhr.readyState > 3 && xhr.status === 200) {
+                        if (xhr.readyState > 3 && xhr.status === 200) {
 
+                            this.setState({ submitState: STATE_SUBMITTED }, () => {
 
-                        this.setState({ submitted: true }, () => {
-
-                            fbq('track', 'CompleteRegistration');
-
-                            setTimeout(() => {
-
-                                this.setState({ submitted: false });
-
-                            }, 5000);
-                        });
-                    }
-                };
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send(params);
-
+                                this.fbq('track', 'CompleteRegistration');
+                            });
+                        }
+                    };
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send(params);
+                });
             }
         });
     }
@@ -178,7 +183,13 @@ class Form extends React.Component {
                 </div>
                 <div className="col-xs-12">
                     {this.descriptionField}
-                    <button type="submit" className="btn">Submit your idea</button>
+                    <button
+                        type="submit"
+                        className="btn"
+                        disabled={this.state.submitState > STATE_INACTIVE}
+                    >
+                        Submit your idea
+                    </button>
                 </div>
             </div>
         );
@@ -191,7 +202,13 @@ class Form extends React.Component {
                 {this.nameField}
                 {this.emailField}
                 {this.descriptionField}
-                <button type="submit" className="btn">Submit your idea</button>
+                <button
+                    type="submit"
+                    className="btn"
+                    disabled={this.state.submitState > STATE_INACTIVE}
+                >
+                    Submit your idea
+                </button>
             </div>
         );
 
@@ -200,7 +217,7 @@ class Form extends React.Component {
     render() {
 
         return (
-            <div className={`form clearfix${this.state.submitted ? ' submitted' : ''}`}>
+            <div className={`form clearfix${this.state.submitState === STATE_SUBMITTED ? ' submitted' : ''}`}>
                 {this.thanks}
                 <form
                     name={this.props.formName}

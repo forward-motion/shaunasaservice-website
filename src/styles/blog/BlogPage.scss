@@ -1,7 +1,15 @@
 .blog-page {
 
+  position: relative;
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    left: 0;
+  }
   .hero {
 
+    padding-bottom: 60px;
     text-align: center;
     h1 {
       padding-bottom: 30px;
@@ -10,22 +18,33 @@
       width: 200px;
     }
 
-    padding-bottom: 80px;
-
-    input, .btn {
-      margin-top: 30px;
-      height: 50px;
-      font-size: 24px;
-    }
-    .btn {
-      border: 1px solid transparent;
+    .form-group {
+      input {
+        margin-top: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
     }
   }
 
-  ul {
+  .posts {
     list-style-type: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 50px;
+  }
+
+  .sidebar-content {
+    padding-top: 50px;
+    .contact {
+      padding-top: 20px;
+    }
+    .cta {
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+      a {
+        color: rgb(108, 99, 255);
+      }
+    }
   }
 
   .blog-post-summary {
@@ -43,10 +62,13 @@
     }
   }
 
-  .sidebar {
-    position: fixed;
-    right: 0;
-    left: 0;
-    top: 500px;
+  .load-more {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    .btn {
+      height: 50px;
+      font-size: 24px;
+    }
   }
 }
