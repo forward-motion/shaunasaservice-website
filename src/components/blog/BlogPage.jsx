@@ -9,9 +9,9 @@ import '../../styles/blog/BlogPage.scss';
 
 
 const client = createClient({
-    space: process.env.CONTENTFUL_SPACE_ID,
-    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-    host: process.env.CONTENTFUL_HOST
+    space: process.env.GATSBY_CONTENTFUL_SPACE_ID,
+    accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
+    host: process.env.GATSBY_CONTENTFUL_HOST
 });
 
 class BlogPage extends React.Component {
@@ -22,10 +22,15 @@ class BlogPage extends React.Component {
         this.state = {
             query: '',
             posts: null,
-            page: 1
+            page: 1,
+            email: '',
+            submitted: false
         };
 
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onSubscribe = this.onSubscribe.bind(this);
         this.onSearch = this.onSearch.bind(this);
+
         this.debouncedSearch = debounce(() => {
 
             const limit = 50;
@@ -51,11 +56,58 @@ class BlogPage extends React.Component {
         this.search();
     }
 
-    onSearch(e) {
+    onChangeEmail(e) {
 
         this.setState({
-            query: e.currentTarget.value
-        }, () => {
+            email: e.currentTarget.value
+        });
+    }
+
+    onSubscribe(e) {
+
+        e.preventDefault();
+
+        const data = {
+            email: this.state.email,
+            api_key: process.env.GATSBY_CONVERTKIT_API_KEY
+        };
+
+        const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+        xhr.open('POST', `https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`);
+        xhr.onreadystatechange = () => {
+
+            if (xhr.readyState > 3 && xhr.status === 200) {
+
+
+                this.setState({ submitted: true }, () => {
+
+                    fbq('track', 'Lead');
+
+                    setTimeout(() => {
+
+                        this.setState({ submitted: false });
+
+                    }, 5000);
+                });
+            }
+        };
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        xhr.send(JSON.stringify(data));
+    }
+
+    onSearch(e) {
+
+        const query = e.currentTarget.value;
+
+        if (query.length > 1) {
+            fbq('track', 'Search', {
+                search_string: query
+            });
+        }
+
+        this.setState({ query }, () => {
             this.search();
         });
     }
@@ -79,8 +131,6 @@ class BlogPage extends React.Component {
                 </li>
             );
         }
-
-        console.log(this.state.posts);
 
         return this.state.posts.map(({fields: post}) => (
             <li key={post.slug}>
@@ -125,15 +175,20 @@ class BlogPage extends React.Component {
 
                         <div className="row">
                             <div className="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        placeholder="Looking for something?"
-                                        value={this.state.query}
-                                        onChange={this.onSearch}
-                                    />
-                                </div>
+
+                                <form className="form-inline" onSubmit={this.onSubscribe}>
+                                    <div className="form-group">
+                                        <input
+                                            className="form-control"
+                                            type="text"
+                                            placeholder="Get blog updates"
+                                            value={this.state.email}
+                                            onChange={this.onChangeEmail}
+                                        />
+
+                                    </div>
+                                    <button type="submit" className="btn">Subscribe</button>
+                                </form>
                             </div>
                         </div>
 

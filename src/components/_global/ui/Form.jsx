@@ -58,7 +58,7 @@ class Form extends React.Component {
 
                         this.setState({ submitted: true }, () => {
 
-                            fbq('track', 'Lead');
+                            fbq('track', 'CompleteRegistration');
 
                             setTimeout(() => {
 
