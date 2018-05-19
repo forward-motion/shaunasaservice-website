@@ -4,10 +4,6 @@ exports.handler = function submissionCreated(event, context, callback) {
 
     const request = JSON.parse(event.body);
 
-    callback(null, {
-        statusCode: 200
-    });
-
     let body = '';
 
     const data = JSON.stringify({
@@ -15,8 +11,6 @@ exports.handler = function submissionCreated(event, context, callback) {
         first_name: request.payload.data.name,
         api_key: process.env.GATSBY_CONVERTKIT_API_KEY
     });
-
-    console.log('data', data);
 
     const req = http.request({
         host: 'api.convertkit.com',
