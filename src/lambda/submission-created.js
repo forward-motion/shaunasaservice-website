@@ -4,7 +4,7 @@ exports.handler = function submissionCreated(event, context, callback) {
 
     console.log('event', event);
     console.log('context', context);
-    
+
     let body = '';
 
     const data = JSON.stringify({
