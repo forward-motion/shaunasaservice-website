@@ -6,10 +6,12 @@ exports.handler = function submissionCreated(event, context, callback) {
 
     let body = '';
 
+    console.log('First name', request.payload.first_name);
+
     const data = JSON.stringify({
         email: request.payload.data.email,
-        first_name: request.payload.data.name,
-        name: request.payload.data.name,
+        first_name: request.payload.first_name,
+        name: request.payload.data.first_name,
         api_key: process.env.GATSBY_CONVERTKIT_API_KEY
     });
 
