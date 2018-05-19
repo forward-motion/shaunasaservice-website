@@ -3,8 +3,10 @@ const http = require('https');
 exports.handler = function submissionCreated(event, context, callback) {
 
 
+    const request = JSON.parse(event.body);
     console.log('hello?');
-    console.log('event', JSON.parse(event.body));
+    console.log('event', Object.keys(request));
+    console.log('event', request.payload);
 
     callback(null, {
         statusCode: 200
