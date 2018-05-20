@@ -86,9 +86,11 @@ class Sidebar extends React.Component {
                     <div className="row">
                         <div className="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8">
 
-                            {this.props.children}
-
                             <div className="sidebar-content">
+
+                                {this.props.children}
+
+
                                 <form onSubmit={this.onSubscribe}>
                                     <div className="input-group">
                                         <input
