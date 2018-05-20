@@ -265,7 +265,7 @@ class BlogPage extends React.Component {
             <div className="blog-page">
 
                 <Helmet
-                    title="Shaun (as a service) - You think it, I build it."
+                    title="Shaun (as a service) - Blog"
                     meta={[
                         { name: 'description', content: `Thoughts on coding, product development, and indie hacking.` }
                     ]}
