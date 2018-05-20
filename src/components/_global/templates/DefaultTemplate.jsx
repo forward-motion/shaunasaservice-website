@@ -15,7 +15,7 @@ const DefaultTemplate = (props) => {
                 title="Shaun (as a service) - You think it, I build it."
                 meta={[
                     { name: 'description', content: `Send me your product idea, and I'll build you a prototype in 30 days or less.` },
-                    { name: 'keywords', content: 'mvp, consulting, freelancer, developer' },
+                    { name: 'keywords', content: 'mvp, consulting, freelancer, developer, blog' },
                 ]}
             >
 
