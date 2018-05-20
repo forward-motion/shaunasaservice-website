@@ -1,4 +1,6 @@
 import React from 'react';
+import Helmet from 'react-helmet';
+
 import Link from 'gatsby-link';
 import debounce from 'lodash.debounce';
 import {createClient} from 'contentful';
@@ -202,7 +204,9 @@ class BlogPage extends React.Component {
                                     </Link>
                                 </div>
                                 <div className="media-body">
-                                    <h3 className="media-heading">{post.title}</h3>
+                                    <Link to={`/blog/${post.slug}`}>
+                                        <h3 className="media-heading">{post.title}</h3>
+                                    </Link>
                                     {post.summary}
                                 </div>
                             </div>
@@ -247,9 +251,9 @@ class BlogPage extends React.Component {
                     </span>
                     </div>
                 </form>
-                <div className="cta">
-                    Got a product idea? <Link to="/">Let's talk.</Link>
-                </div>
+                <p>
+                    Got a product idea? <Link to="/"><span>Let's talk.</span></Link>
+                </p>
                 <Contact />
             </div>
         );
@@ -259,6 +263,19 @@ class BlogPage extends React.Component {
 
         return (
             <div className="blog-page">
+
+                <Helmet
+                    title="Shaun (as a service) - You think it, I build it."
+                    meta={[
+                        { name: 'description', content: `Thoughts on coding, product development, and indie hacking.` }
+                    ]}
+                >
+
+                    <meta property="og:url" content="https://shaunasaservice.com/blog" />
+                    <meta property="og:description" content={`Thoughts on coding, product development, and indie hacking.`} />
+                    <meta property="og:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
+
+                </Helmet>
 
                 <div
                     className="hero"
