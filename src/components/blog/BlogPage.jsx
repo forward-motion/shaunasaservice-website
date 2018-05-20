@@ -7,7 +7,7 @@ import {createClient} from 'contentful';
 
 import blogging from '../../assets/img/blogging.svg';
 
-import Contact from '../_global/ui/Contact.jsx';
+import Sidebar from './Sidebar.jsx';
 
 import '../../styles/blog/BlogPage.scss';
 
@@ -18,9 +18,6 @@ const client = createClient({
     host: process.env.GATSBY_CONTENTFUL_HOST
 });
 
-const STATE_INACTIVE = 0;
-const STATE_SUBMITTING = 1;
-const STATE_SUBMITTED = 2;
 
 class BlogPage extends React.Component {
 
@@ -31,16 +28,12 @@ class BlogPage extends React.Component {
             query: '',
             posts: [],
             page: 1,
-            email: '',
-            submitState: STATE_INACTIVE,
             underFold: false,
             isQuerying: true,
             moreToLoad: true
         };
 
         this.onScroll = this.onScroll.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onSubscribe = this.onSubscribe.bind(this);
         this.onSearch = this.onSearch.bind(this);
         this.onClearSearch = this.onClearSearch.bind(this);
         this.onLoadMore = this.onLoadMore.bind(this);
@@ -58,7 +51,8 @@ class BlogPage extends React.Component {
                     limit,
                     skip,
                     content_type: 'blog-post',
-                    query: this.state.query
+                    order: 'sys.createdAt',
+                    query: this.state.query,
                 }).then((response) => {
 
                     this.setState({
@@ -76,7 +70,7 @@ class BlogPage extends React.Component {
 
     onScroll() {
 
-        if (window.scrollY > (this.subscribeDiv.offsetTop + this.subscribeDiv.offsetHeight)) {
+        if (window.scrollY > (this.heroDiv.offsetTop + this.heroDiv.offsetHeight)) {
 
             if (!this.state.underFold) {
                 this.setState({
@@ -105,45 +99,6 @@ class BlogPage extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll);
-    }
-
-    onChangeEmail(e) {
-
-        this.setState({
-            email: e.currentTarget.value
-        });
-    }
-
-    onSubscribe(e) {
-
-        e.preventDefault();
-
-        this.fbq('track', 'Lead');
-
-        this.setState({
-            submitState: STATE_SUBMITTING
-        }, () => {
-
-            const data = {
-                email: this.state.email,
-                api_key: process.env.GATSBY_CONVERTKIT_API_KEY
-            };
-
-            const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-
-            xhr.open('POST', `https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`);
-            xhr.onreadystatechange = () => {
-
-                if (xhr.readyState > 3 && xhr.status === 200) {
-
-                    this.setState({ submitState: STATE_SUBMITTED });
-                }
-            };
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-            xhr.send(JSON.stringify(data));
-
-        });
     }
 
     onSearch(e) {
@@ -217,47 +172,6 @@ class BlogPage extends React.Component {
         ));
     }
 
-    get sidebar() {
-
-        let subscribeButton = 'Subscribe';
-        switch (this.state.submitState) {
-            case STATE_SUBMITTING:
-                subscribeButton = 'Submitting...';
-                break;
-            case STATE_SUBMITTED:
-                subscribeButton = 'Submitted!';
-                break;
-        }
-
-        return (
-            <div className="sidebar-content">
-                <form onSubmit={this.onSubscribe}>
-                    <div className="input-group">
-                        <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Enter email to subscribe"
-                            value={this.state.email}
-                            onChange={this.onChangeEmail}
-                        />
-                        <span className="input-group-btn">
-                        <button
-                            type="submit"
-                            className="btn"
-                            disabled={this.state.submitState > STATE_INACTIVE}
-                        >
-                            {subscribeButton}
-                        </button>
-                    </span>
-                    </div>
-                </form>
-                <p>
-                    Got a product idea? <Link to="/"><span>Let's talk.</span></Link>
-                </p>
-                <Contact />
-            </div>
-        );
-    }
 
     render() {
 
@@ -280,7 +194,7 @@ class BlogPage extends React.Component {
 
                 <div
                     className="hero"
-                    ref={(div => { this.subscribeDiv = div })}
+                    ref={(div => { this.heroDiv = div })}
                 >
 
                     <div className="container">
@@ -318,15 +232,8 @@ class BlogPage extends React.Component {
                     </div>
                 </div>
 
-                <div className={`${this.state.underFold ? 'sidebar hidden-xs hidden-sm' : 'hidden'}`}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-4 col-lg-offset-8 col-md-4 col-md-offset-8">
-                                {this.sidebar}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Sidebar underFold={this.state.underFold} />
+
 
                 <div className="content">
                     <div className="container">
@@ -347,11 +254,6 @@ class BlogPage extends React.Component {
                                             </button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-4 col-md-4">
-                                <div className={this.state.underFold ? 'hidden' : 'mini-sidebar hidden-xs hidden-sm'}>
-                                    {this.sidebar}
                                 </div>
                             </div>
                         </div>

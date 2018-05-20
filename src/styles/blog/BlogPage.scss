@@ -1,12 +1,5 @@
 .blog-page {
 
-  position: relative;
-  .sidebar {
-    position: fixed;
-    top: 50px;
-    right: 0;
-    left: 0;
-  }
   .hero {
 
     padding-bottom: 60px;
@@ -15,7 +8,7 @@
       padding-bottom: 30px;
     }
     img {
-      width: 200px;
+      height: 96px;
     }
 
     .form-group {
@@ -32,18 +25,6 @@
     padding-top: 50px;
   }
 
-  .sidebar-content {
-    padding-top: 50px;
-    .contact {
-      padding-top: 20px;
-    }
-    p {
-      text-align: center;
-      padding-top: 20px;
-      font-size: 16px;
-    }
-  }
-
   .blog-post-summary {
 
     a {
@@ -58,7 +39,6 @@
       background-size: cover;
     }
     h3 {
-      padding-top: 5px;
       padding-bottom: 10px;
     }
   }

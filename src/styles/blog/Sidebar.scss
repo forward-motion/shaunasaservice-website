@@ -1,0 +1,31 @@
+.sidebar {
+
+  position: relative;
+
+  .sidebar-content {
+    padding-top: 50px;
+    @media (min-width: 999px) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+
+    .contact {
+      padding-top: 20px;
+    }
+    p {
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+    }
+  }
+  &.under-fold {
+    @media (min-width: 999px) {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+  }
+}
