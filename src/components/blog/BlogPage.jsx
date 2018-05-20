@@ -265,13 +265,14 @@ class BlogPage extends React.Component {
             <div className="blog-page">
 
                 <Helmet
-                    title="Shaun (as a service) - Blog"
+                    title="Shaun (as a service) - You think it, I build it."
                     meta={[
                         { name: 'description', content: `Thoughts on coding, product development, and indie hacking.` }
                     ]}
                 >
 
-                    <meta property="og:url" content="https://shaunasaservice.com/blog" />
+                    <meta property="og:title" content="Shaun (as a service) - Blog" />
+                    <meta property="og:url" content="https://shaunasaservice.com/blog/" />
                     <meta property="og:description" content={`Thoughts on coding, product development, and indie hacking.`} />
                     <meta property="og:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
 
