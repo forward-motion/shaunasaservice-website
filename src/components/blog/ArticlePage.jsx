@@ -4,6 +4,10 @@ import Helmet from 'react-helmet';
 import {
     FacebookShareButton,
     TwitterShareButton,
+    LinkedinShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
     EmailShareButton,
 } from 'react-share';
 
@@ -93,7 +97,8 @@ class ArticlePage extends React.Component {
                 </div>
 
                 <Sidebar underFold={this.state.underFold}>
-                    <ul>
+
+                    <ul className="share-buttons">
                         <li>
                             <FacebookShareButton url={url}>
                                 <span className="icon-facebook" />
@@ -105,11 +110,32 @@ class ArticlePage extends React.Component {
                             </TwitterShareButton>
                         </li>
                         <li>
+                            <LinkedinShareButton url={url}>
+                                <span className="icon-linkedin2" />
+                            </LinkedinShareButton>
+                        </li>
+                        <li>
+                            <RedditShareButton url={url}>
+                                <span className="icon-reddit" />
+                            </RedditShareButton>
+                        </li>
+                        <li>
+                            <TelegramShareButton url={url}>
+                                <span className="icon-telegram" />
+                            </TelegramShareButton>
+                        </li>
+                        <li>
+                            <WhatsappShareButton url={url}>
+                                <span className="icon-whatsapp" />
+                            </WhatsappShareButton>
+                        </li>
+                        <li>
                             <EmailShareButton url={url}>
-                                <span className="icon-envelop" />
+                                <span className="icon-envelop2" />
                             </EmailShareButton>
                         </li>
                     </ul>
+
                 </Sidebar>
 
 
