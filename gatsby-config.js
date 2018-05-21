@@ -1,6 +1,8 @@
 module.exports = {
     siteMetadata: {
         title: 'Shaun as a service - You think it, I build it.',
+        description: 'Thoughts on coding, product development, and indie hacking.',
+        siteUrl: 'https://shaunasaservice.com/blog/'
     },
     plugins: [
         'gatsby-plugin-react-helmet',
@@ -30,6 +32,53 @@ module.exports = {
             resolve: `gatsby-plugin-facebook-pixel`,
             options: {
                 pixelId: process.env.GATSBY_FACEBOOK_PIXEL_ID,
+            },
+        },
+        {
+            resolve: `gatsby-plugin-feed`,
+            options: {
+                query: `
+                    {
+                      site {
+                        siteMetadata {
+                          title
+                          description
+                          siteUrl
+                          site_url: siteUrl
+                        }
+                      }
+                    }
+                  `
+                ,
+                feeds: [
+                    {
+                        serialize: ({ query: { site, allContentfulBlogPost } }) => {
+                            return allContentfulBlogPost.edges.map(edge => {
+                                
+                                return {
+                                    description: edge.node.summary,
+                                    url: site.siteMetadata.siteUrl + edge.node.slug,
+                                    guid: site.siteMetadata.siteUrl + edge.node.slug
+                                };
+                            });
+                        },
+                        query: `
+                            {
+                              allContentfulBlogPost(limit: 1000) {
+                                edges {
+                                  node {
+                                    title
+                                    slug
+                                    summary
+                                  }
+                                }
+                              }
+                            } 
+                          `
+                        ,
+                        output: "/rss.xml",
+                    },
+                ],
             },
         },
     ],
