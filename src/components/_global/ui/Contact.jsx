@@ -10,6 +10,8 @@ const Contact = (props) => (
         <li><a target="_blank" href="https://twitter.com/shaunpersad">Twitter</a></li>
         <li>|</li>
         <li><a target="_blank" href="https://github.com/shaunpersad/">GitHub</a></li>
+        <li>|</li>
+        <li><a target="_blank" href="/rss.xml">RSS</a></li>
     </ul>
 );
 

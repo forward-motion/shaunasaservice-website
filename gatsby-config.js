@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'Shaun as a service - You think it, I build it.',
+        title: 'Shaun as a service - Blog',
         description: 'Thoughts on coding, product development, and indie hacking.',
         siteUrl: 'https://shaunasaservice.com/blog/'
     },
