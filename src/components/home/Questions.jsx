@@ -24,7 +24,7 @@ const faqs = [
         answer: (
             <div>
                 <p>
-                    Succinctly, it's anything you'd need a developer for. Examples include SaaS apps, chat bots, back-end services, etc. I currently specialize in web-based products, but I am open to some mobile projects as well.
+                    Succinctly, it's anything you'd need a developer (or "coder") for. Examples include SaaS apps, chat bots, back-end services, etc. I currently specialize in web-based products, but I am open to some mobile projects as well.
                 </p>
             </div>
         )
