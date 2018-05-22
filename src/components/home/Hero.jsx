@@ -26,7 +26,7 @@ const Hero = (props) => (
                     </div>
 
                     <h3 className="subtext">
-                        Send me your product idea, and I'll build you a prototype in 30 days or less.
+                        Send me your digital product idea, and I'll build you a prototype in 30 days or less.
                     </h3>
                     <h3 className="tagline">
                         You think it, I build it.

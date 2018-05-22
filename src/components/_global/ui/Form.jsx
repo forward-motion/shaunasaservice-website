@@ -148,7 +148,7 @@ class Form extends React.Component {
                     name="description"
                     className="form-control"
                     rows={this.props.rows}
-                    placeholder="Description of your product idea in 280 characters"
+                    placeholder="Description of your digital product idea in 280 characters"
                     value={this.state.description}
                     onChange={this.onChangeDescription}
                 />

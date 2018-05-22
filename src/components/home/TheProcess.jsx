@@ -14,7 +14,7 @@ const steps = [
         component: (
             <div>
                 <h4>
-                    Apply using this form:
+                    Describe your digital product in the form below:
                 </h4>
                 <div>
                     <Form rows={2} />

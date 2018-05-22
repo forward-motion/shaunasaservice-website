@@ -20,6 +20,16 @@ const faqs = [
         )
     },
     {
+        question: 'What is a "digital product"?',
+        answer: (
+            <div>
+                <p>
+                    Succintly, it's anything you'd need a developer for. Examples include SaaS apps, chat bots, back-end services, etc. I currently specialize in web-based products, but I am open to some mobile projects as well.
+                </p>
+            </div>
+        )
+    },
+    {
        question: 'Your process seems very low-touch. And only 280 characters? What gives?',
        answer: (
            <div>
