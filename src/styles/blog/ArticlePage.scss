@@ -8,34 +8,36 @@
     }
   }
 
-  .post-content {
-    padding-top: 50px;
-    padding-right: 25px;
-    p, ul, ol {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      margin: 0;
-      line-height: 26px;
-      font-size: 16px;
-    }
-    ul, ol {
-      padding-left: 35px;
-    }
-    blockquote {
-      font-style: italic;
-    }
-    hr {
-      border-top: 1px solid transparent;
-    }
-    h1, h2, h3, h4, h5 {
-      padding-bottom: 5px;
-      font-weight: bold;
-    }
-    h3, h4, h5 {
-      padding-top: 10px;
+  .content {
+    padding-bottom: 50px;
+    .post-content {
+      padding-top: 50px;
+      padding-right: 25px;
+      p, ul, ol {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin: 0;
+        line-height: 26px;
+        font-size: 16px;
+      }
+      ul, ol {
+        padding-left: 35px;
+      }
+      blockquote {
+        font-style: italic;
+      }
+      hr {
+        border-top: 1px solid transparent;
+      }
+      h1, h2, h3, h4, h5 {
+        padding-bottom: 5px;
+        font-weight: bold;
+      }
+      h3, h4, h5 {
+        padding-top: 10px;
+      }
     }
   }
-
   ul.share-buttons {
     width: 100%;
     text-align: center;
@@ -51,6 +53,12 @@
           color: rgb(77, 182, 172);
         }
       }
+    }
+  }
+  .comments {
+    h4 {
+      padding-top: 50px;
+      padding-bottom: 15px;
     }
   }
 }

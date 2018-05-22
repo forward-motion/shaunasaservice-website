@@ -1,5 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import TweetEmbed from 'react-tweet-embed';
 
 import {
     FacebookShareButton,
@@ -149,6 +150,22 @@ class ArticlePage extends React.Component {
                                         __html: post.description.childMarkdownRemark.html,
                                     }}
                                 />
+                            </div>
+                        </div>
+                        <div className="row comments">
+                            <div className="col-xs-12">
+                                <h4>
+                                    Want to leave a comment? Reply to the tweet below:
+                                </h4>
+                                {post.tweet ? (
+                                    <TweetEmbed id={post.tweet} options={{
+                                        cards: 'hidden',
+                                        theme: 'light',
+                                        linkColor: '#6C63FF',
+                                        borderColor: '#6C63FF',
+                                        dnt: true
+                                    }}/>
+                                ) : null}
                             </div>
                         </div>
                     </div>

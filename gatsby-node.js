@@ -62,6 +62,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                                     tags {
                                       body
                                     }
+                                    tweet
                                   }
                                 }
                               }
