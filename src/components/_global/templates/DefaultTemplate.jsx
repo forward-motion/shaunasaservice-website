@@ -42,6 +42,12 @@ const DefaultTemplate = (props) => {
                 <meta name="twitter:dnt" content="on" />
                 <meta name="twitter:widgets:csp" content="on" />
 
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:site" content="@shaunpersad" />
+                <meta name="twitter:title" content="Shaun (as a service) - You think it, I build it." />
+                <meta name="twitter:description" content={`Send me your product idea, and I'll build you a prototype in 30 days or less.`} />
+                <meta name="twitter:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable.png" />
+
             </Helmet>
 
 

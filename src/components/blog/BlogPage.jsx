@@ -190,6 +190,10 @@ class BlogPage extends React.Component {
                     <meta property="og:description" content={`Thoughts on coding, product development, and indie hacking.`} />
                     <meta property="og:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
 
+                    <meta name="twitter:title" content="Shaun (as a service) - Blog" />
+                    <meta name="twitter:description" content={`Thoughts on coding, product development, and indie hacking.`} />
+                    <meta name="twitter:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
+
                 </Helmet>
 
                 <div

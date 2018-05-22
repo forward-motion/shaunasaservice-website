@@ -78,6 +78,10 @@ class ArticlePage extends React.Component {
                     <meta property="og:description" content={post.summary} />
                     <meta property="og:image" content={post.hero.file.url} />
 
+                    <meta name="twitter:title" content={post.title} />
+                    <meta name="twitter:description" content={post.summary} />
+                    <meta name="twitter:image" content={post.hero.file.url} />
+
                 </Helmet>
 
                 <div
