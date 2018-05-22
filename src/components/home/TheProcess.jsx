@@ -86,7 +86,7 @@ const steps = [
                 <ul>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        the completed, hosted website or application
+                        the completed, hosted prototype
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
@@ -94,7 +94,7 @@ const steps = [
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        instructions for building, running, and hosting your application yourself
+                        instructions for building, running, and hosting your prototype yourself
                     </li>
                 </ul>
                 <p>
