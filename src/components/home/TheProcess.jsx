@@ -54,20 +54,20 @@ const steps = [
         component: (
             <div>
                 <h4>
-                    You then select your preferred option, which are in the range of:
+                    You then select your preferred option, which are approximately:
                 </h4>
                 <ul>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        <strong>low</strong>: $100 - $1500 | 1-2 weeks
+                        <strong>low</strong>: $100+ | 1-2 weeks
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        <strong>medium</strong>: $1500 - $3000 | 2-3 weeks
+                        <strong>medium</strong>: $2500+ | 2-3 weeks
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        <strong>high</strong>: $3000 - $4500 | 3-4 weeks
+                        <strong>high</strong>: $4000+ | 3-4 weeks
                     </li>
                 </ul>
                 <p>
