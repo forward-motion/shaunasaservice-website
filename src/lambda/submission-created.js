@@ -17,7 +17,7 @@ exports.handler = function submissionCreated(event, context, callback) {
 
     const req = http.request({
         host: 'api.convertkit.com',
-        path: `v3/courses/${process.env.GATSBY_CONVERTKIT_SEQUENCE_ID}/subscribe`,
+        path: `/v3/courses/${process.env.GATSBY_CONVERTKIT_SEQUENCE_ID}/subscribe`,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
