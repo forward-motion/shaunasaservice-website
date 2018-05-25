@@ -24,11 +24,11 @@ const types = [
     },
     {
         title: 'Proof-of-Concepts',
-        image: proofOfConcepts
+        image: frontEndDemos
     },
     {
         title: 'Front-end Demos',
-        image: frontEndDemos
+        image: proofOfConcepts
     },
     {
         title: 'Landing Pages',
@@ -47,7 +47,7 @@ const Deliverables = (props) => (
                     </h2>
                 </div>
                 {types.map(type => (
-                    <div className="col-md-4" key={type.title}>
+                    <div className="col-md-4 col-sm-6" key={type.title}>
                         <img src={type.image} />
                         <h4>
                             {type.title}
