@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 import TweetEmbed from 'react-tweet-embed';
+import Prism from 'prismjs';
 
 import {
     FacebookShareButton,
@@ -13,6 +15,8 @@ import {
 } from 'react-share';
 
 import Sidebar from './Sidebar.jsx';
+
+import 'prismjs/themes/prism-tomorrow.css'
 
 import '../../styles/blog/ArticlePage.scss';
 
@@ -31,6 +35,7 @@ class ArticlePage extends React.Component {
     componentDidMount() {
 
         window.addEventListener('scroll', this.onScroll);
+        Prism.highlightAllUnder(ReactDOM.findDOMNode(this));
     }
 
     componentWillUnmount() {
@@ -97,6 +102,11 @@ class ArticlePage extends React.Component {
                                     {post.title}
                                 </h1>
                             </div>
+                            <div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                                <h4>
+                                    {post.summary}
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +159,7 @@ class ArticlePage extends React.Component {
                         <div className="row">
                             <div className="col-lg-8 col-md-8">
                                 <div
-                                    className="post-content"
+                                    className="post-content language-javascript"
                                     dangerouslySetInnerHTML={{
                                         __html: post.description.childMarkdownRemark.html,
                                     }}

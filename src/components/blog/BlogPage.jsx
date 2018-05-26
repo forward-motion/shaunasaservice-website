@@ -51,7 +51,7 @@ class BlogPage extends React.Component {
                     limit,
                     skip,
                     content_type: 'blog-post',
-                    order: 'sys.createdAt',
+                    order: '-sys.createdAt',
                     query: this.state.query,
                 }).then((response) => {
 
