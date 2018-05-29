@@ -2,7 +2,7 @@
 FROM node:latest
 
 # install nodemon
-RUN npm install --global gatsby-cli
+RUN npm install --global gatsby-cli netlify-lambda
 
 # Create app directory
 RUN mkdir -p /usr/src/app
