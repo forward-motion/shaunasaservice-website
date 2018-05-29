@@ -7,8 +7,8 @@ import Prism from 'prismjs';
 import Promise from 'promise-polyfill';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import firebase from 'firebase';
-import 'firebase/auth';
+// import firebase from 'firebase';
+// import 'firebase/auth';
 
 
 import {
@@ -45,7 +45,7 @@ const client = createClient({
     host: process.env.GATSBY_CONTENTFUL_HOST
 });
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 
 function postRequest(url, data) {
