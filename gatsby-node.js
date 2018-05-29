@@ -28,13 +28,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             const numFetches = Math.ceil(result.data.allContentfulBlogPost.totalCount / limit);
             let p = Promise.resolve();
 
-            console.log('fetching', numFetches);
-
             for (let i = 0; i < numFetches; i++) {
 
                 const skip = i * limit;
-
-                console.log('skip', skip);
 
                 p = p.then(() => {
 
