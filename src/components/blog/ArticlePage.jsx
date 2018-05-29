@@ -9,6 +9,7 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 // import firebase from 'firebase';
 // import 'firebase/auth';
+import { createClient } from 'contentful';
 
 
 import {
