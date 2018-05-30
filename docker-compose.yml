@@ -5,7 +5,7 @@ services:
     build: .
     container_name: shaunasaservice-website
     image: forward-motion/shaunasaservice-website
-    command: npm run develop
+    command: npm run build
     env_file: .env.development
     ports:
       - '8000:8000'
