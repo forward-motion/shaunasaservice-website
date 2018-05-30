@@ -20,6 +20,7 @@
     "gatsby-transformer-remark": "^1.7.41",
     "javascript-time-ago": "^1.0.30",
     "lodash.debounce": "^4.0.8",
+    "netlify-lambda": "^0.4.0",
     "prismjs": "^1.14.0",
     "promise-polyfill": "7.1.2",
     "react-commentbox": "^2.0.1",
@@ -33,7 +34,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "netlify-lambda build /usr/src/app/lambda | gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop --host 0.0.0.0",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
