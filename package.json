@@ -34,8 +34,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop --host 0.0.0.0",
+    "build": "netlify-lambda build ./lambda && gatsby build",
+    "develop": "netlify-lambda serve ./lambda && gatsby develop --host 0.0.0.0",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
