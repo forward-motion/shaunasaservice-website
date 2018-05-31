@@ -260,11 +260,11 @@ class ArticlePage extends React.Component {
                     <meta property="og:title" content={post.title} />
                     <meta property="og:url" content={url} />
                     <meta property="og:description" content={post.summary} />
-                    <meta property="og:image" content={post.hero.file.url} />
+                    <meta property="og:image" content={post.hero ? post.hero.file.url : ''} />
 
                     <meta name="twitter:title" content={post.title} />
                     <meta name="twitter:description" content={post.summary} />
-                    <meta name="twitter:image" content={post.hero.file.url} />
+                    <meta name="twitter:image" content={post.hero ? post.hero.file.url : ''} />
 
                 </Helmet>
 

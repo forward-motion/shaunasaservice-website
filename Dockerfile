@@ -1,5 +1,5 @@
 # Node.js version
-FROM node:latest
+FROM node:8
 
 # install nodemon
 RUN npm install --global gatsby-cli
