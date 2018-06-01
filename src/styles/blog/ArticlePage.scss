@@ -71,9 +71,108 @@
     }
   }
   .comments {
+    width: 100%;
+    max-width: 500px;
     h4 {
       padding-top: 50px;
       padding-bottom: 15px;
+    }
+
+    .commentbox {
+
+      ul.cb-comments {
+
+        padding: 0;
+        margin: 0;
+
+        li.cb-comment {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+
+          &.cb-replying-to > div {
+            background: gray;
+          }
+
+          .cb-comment-content {
+
+            padding-top: 15px;
+            padding-bottom: 15px;
+          }
+
+          .cb-comment-footer {
+
+            .cb-user-avatar {
+              width: 25px;
+            }
+
+            .cb-user-name {
+              padding-left: 10px;
+            }
+
+            .cb-timestamp {
+
+              padding-left: 10px;
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+
+      .cb-header {
+        position: relative;
+
+        > div {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          margin-top: -35px;
+          text-align: center;
+          h5 {
+            padding-bottom: 10px;
+          }
+        }
+      }
+
+      .firebaseui-container {
+        overflow: visible;
+        span {
+          color: #fff;
+        }
+        .firebaseui-idp-google > .firebaseui-idp-text {
+          color: #757575;
+        }
+        .firebaseui-idp-list {
+          width: 100%;
+          text-align: center;
+          li {
+            display: inline;
+            list-style-type: none;
+            padding: 10px;
+            .mdl-button {
+              border-radius: 0;
+            }
+            .firebaseui-idp-button {
+              width: auto;
+              .firebaseui-idp-text {
+                display: none;
+              }
+              .firebaseui-idp-icon-wrapper {
+                display: inline;
+              }
+            }
+          }
+        }
+      }
+
+      textarea, .firebaseui-container {
+        width: 100%;
+      }
+      textarea:disabled {
+        background: gainsboro;
+        border: 0 none;
+      }
     }
   }
 }

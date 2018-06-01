@@ -23,11 +23,12 @@
     "netlify-lambda": "^0.4.0",
     "prismjs": "^1.14.0",
     "promise-polyfill": "7.1.2",
-    "react-commentbox": "^2.0.1",
+    "react-commentbox": "^2.3.0",
     "react-firebaseui": "^1.2.3",
     "react-helmet": "^5.2.0",
     "react-share": "^2.1.1",
-    "react-tweet-embed": "^1.1.0"
+    "react-tweet-embed": "^1.1.0",
+    "superagent": "^3.8.3"
   },
   "keywords": [
     "gatsby"
@@ -35,7 +36,8 @@
   "license": "MIT",
   "scripts": {
     "build": "netlify-lambda build ./src/lambda && gatsby build",
-    "develop": "netlify-lambda serve ./src/lambda && gatsby develop --host 0.0.0.0",
+    "develop": "gatsby develop --host 0.0.0.0",
+    "lambda": "netlify-lambda serve ./src/lambda",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

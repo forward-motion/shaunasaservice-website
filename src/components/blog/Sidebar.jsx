@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import request from 'superagent';
 
 import Contact from '../_global/ui/Contact.jsx';
 
@@ -51,19 +52,12 @@ class Sidebar extends React.Component {
                 api_key: process.env.GATSBY_CONVERTKIT_API_KEY
             };
 
-            const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-
-            xhr.open('POST', `https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`);
-            xhr.onreadystatechange = () => {
-
-                if (xhr.readyState > 3 && xhr.status === 200) {
+            request.post(`https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`)
+                .send(data)
+                .then(res => {
 
                     this.setState({ submitState: STATE_SUBMITTED });
-                }
-            };
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-            xhr.send(JSON.stringify(data));
+                });
 
         });
     }

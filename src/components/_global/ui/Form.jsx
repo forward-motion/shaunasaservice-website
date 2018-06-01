@@ -1,5 +1,5 @@
 import React from 'react';
-
+import request from 'superagent';
 import thanks from '../../../assets/img/thanks.svg';
 
 import '../../../styles/_global/ui/Form.scss';
@@ -55,26 +55,15 @@ class Form extends React.Component {
                         ['form-name']: this.props.formName
                     };
 
-                    const params = Object.keys(data).map(key => {
-                        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-                    }).join('&');
-
-                    const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-
-                    xhr.open('POST', '/');
-                    xhr.onreadystatechange = () => {
-
-                        if (xhr.readyState > 3 && xhr.status === 200) {
-
+                    request.post('/')
+                        .type('form')
+                        .send(data)
+                        .then(res => {
                             this.setState({ submitState: STATE_SUBMITTED }, () => {
 
                                 this.fbq('track', 'CompleteRegistration');
                             });
-                        }
-                    };
-                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.send(params);
+                        });
                 });
             }
         });

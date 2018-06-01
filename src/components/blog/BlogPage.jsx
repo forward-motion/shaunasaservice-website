@@ -155,7 +155,7 @@ class BlogPage extends React.Component {
                             <div className="media">
                                 <div className="media-left hidden-xs hidden-sm">
                                     <Link to={`/blog/${post.slug}`}>
-                                        <div className="media-object" style={{backgroundImage: `url(${post.hero.fields.file.url})`}} />
+                                        <div className="media-object" style={post.hero ? {backgroundImage: `url(${post.hero.fields.file.url})`} : null} />
                                     </Link>
                                 </div>
                                 <div className="media-body">

@@ -43,6 +43,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                                 totalCount
                                 edges {
                                   node {
+                                    contentful_id
                                     title
                                     slug
                                     summary

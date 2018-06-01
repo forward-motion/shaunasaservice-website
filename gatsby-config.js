@@ -1,8 +1,21 @@
+const proxy = require('http-proxy-middleware');
+
 module.exports = {
     siteMetadata: {
         title: 'Shaun as a service - Blog',
         description: 'Thoughts on coding, product development, and indie hacking.',
         siteUrl: 'https://shaunasaservice.com/blog/'
+    },
+    developMiddleware: app => {
+        app.use(
+            '/.netlify/functions/',
+            proxy({
+                target: 'http://lambda:9000',
+                pathRewrite: {
+                    '/.netlify/functions/': '',
+                }
+            })
+        );
     },
     plugins: [
         'gatsby-plugin-react-helmet',

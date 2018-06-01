@@ -4,13 +4,13 @@ import Helmet from 'react-helmet';
 import CommentBox from 'react-commentbox';
 import FirebaseAuth from 'react-firebaseui/FirebaseAuth';
 import Prism from 'prismjs';
-import Promise from 'promise-polyfill';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import firebase from 'firebase';
-import 'firebase/auth';
-import { createClient } from 'contentful';
+import request from 'superagent';
 
+
+import contentfulClient from '../../utils/contentfulClient';
+import firebase from '../../utils/firebase';
 
 import {
     FacebookShareButton,
@@ -27,50 +27,10 @@ import Sidebar from './Sidebar.jsx';
 import 'prismjs/themes/prism-tomorrow.css'
 import '../../styles/blog/ArticlePage.scss';
 
-const config = {
-    apiKey: process.env.GATSBY_FIREBASE_API_KEY,
-    authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.GATSBY_FIREBASE_DATABASE_URL,
-    projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.GATSBY_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID
-};
 
 TimeAgo.locale(en);
 
 const timeAgo = new TimeAgo('en-US');
-
-const client = createClient({
-    space: process.env.GATSBY_CONTENTFUL_SPACE_ID,
-    accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
-    host: process.env.GATSBY_CONTENTFUL_HOST
-});
-
-firebase.initializeApp(config);
-
-
-function postRequest(url, data) {
-
-    return new Promise((resolve, reject) => {
-
-        const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-
-        xhr.open('POST', url);
-        xhr.onreadystatechange = () => {
-
-            if (xhr.readyState > 3 && xhr.status === 200) {
-
-                resolve(JSON.parse(xhr.responseText));
-            } else {
-                reject(new Error('A server error occurred.'));
-            }
-        };
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        xhr.send(JSON.stringify(data));
-    });
-}
-
 
 class ArticlePage extends React.Component {
 
@@ -80,11 +40,13 @@ class ArticlePage extends React.Component {
         this.state = {
             underFold: false,
             user: null,
-            idToken: null
+            idToken: null,
+            loading: false
         };
 
         this.onScroll = this.onScroll.bind(this);
         this.getComments = this.getComments.bind(this);
+        this.normalizeComment = this.normalizeComment.bind(this);
         this.comment = this.comment.bind(this);
         this.reply = this.reply.bind(this);
         this.flag = this.flag.bind(this);
@@ -103,14 +65,21 @@ class ArticlePage extends React.Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(firebaseUser => {
 
             if (firebaseUser) {
+
+                this.setState({
+                    loading: true
+                });
+
                 user = firebaseUser;
                 user.getIdToken().then(firebaseIdToken => {
 
                     idToken = firebaseIdToken;
-                    return client.getEntries({
+
+                    return contentfulClient.getEntries({
                         'content_type': 'commentAuthor',
-                        'fields.id': user.uid
+                        'sys.id': user.uid
                     });
+
                 }).then(response => {
 
                     if (response.items.length) {
@@ -119,17 +88,16 @@ class ArticlePage extends React.Component {
                             return user;
                         }
 
-                        return postRequest('/.netlify/functions/update-comment-author', {
-                            idToken: this.state.idToken
-                        });
+                        return request.post('/.netlify/functions/update-comment-author').send({ idToken });
                     }
 
-                    return postRequest('/.netlify/functions/create-comment-author', {
-                        idToken: this.state.idToken
-                    });
+                    return request.post('/.netlify/functions/create-comment-author').send({ idToken });
+
                 }).then(() => {
 
-                    this.setState({ user, idToken });
+                    this.setState({ user, idToken, loading: false });
+                }).catch(() => {
+                    this.setState({ loading: false });
                 });
 
             } else {
@@ -168,10 +136,13 @@ class ArticlePage extends React.Component {
 
     getComments() {
 
-        return this.props.contentfulClient.getEntries({
+        const { pathContext: { contentful_id: postId } } = this.props;
+
+        return contentfulClient.getEntries({
             'order': 'sys.createdAt',
             'content_type': 'comment',
-            'fields.blogPost.sys.id': this.props.blogPostId,
+            'fields.blogPost.sys.id': postId,
+            'include': 2
         }).then((response) => {
 
             return response.items;
@@ -184,46 +155,72 @@ class ArticlePage extends React.Component {
         const { id, createdAt } = comment.sys;
         const { body, author, parentComment, flagged } = comment.fields;
 
+        console.log('author', author);
+
         return {
             id,
             flagged,
             bodyDisplay: body,
             userNameDisplay: author.fields.displayName,
-            userAvatarUrl: author.field.avatarUrl,
+            userAvatarUrl: author.fields.avatarUrl,
             timestampDisplay: timeAgo.format(new Date(createdAt)),
-            belongsToAuthor: this.props.user ? (this.props.user.uid === author.fields.id) : false,
+            belongsToAuthor: this.state.user ? (this.state.user.uid === author.fields.id) : false,
             parentCommentId: parentComment ? parentComment.sys.id : null
         };
     }
 
     comment(body) {
 
-        return postRequest('/.netlify/functions/create-comment', {
+        const { pathContext: { contentful_id: postId } } = this.props;
+
+        this.setState({ loading: true });
+
+        return request.post('/.netlify/functions/create-comment').send({
             body,
             idToken: this.state.idToken,
-            blogPostId: this.props.blogPostId
+            blogPostId: postId
+        }).then(() => {
+
+            this.setState({ loading: false });
         });
     }
 
     reply(body, commentId) {
 
-        return postRequest('/.netlify/functions/create-comment', {
+        this.setState({ loading: true });
+
+        const { pathContext: { contentful_id: postId } } = this.props;
+
+        return request.post('/.netlify/functions/create-comment').send({
             body,
             idToken: this.state.idToken,
-            blogPostId: this.props.blogPostId,
+            blogPostId: postId,
             parentCommentId: commentId
+        }).then(() => {
+
+            this.setState({ loading: false });
         });
     }
 
     flag(commentId) {
 
-        return postRequest('/.netlify/functions/flag-comment', {
+        return request.post('/.netlify/functions/flag-comment').send({
             idToken: this.state.idToken,
             commentId: commentId
         });
     }
 
     disabledComponent() {
+
+        if (this.state.loading) {
+            return (
+                <div>
+                    <h5>
+                        Please wait...
+                    </h5>
+                </div>
+            );
+        }
 
         const uiConfig = {
             signInFlow: 'popup',
@@ -238,7 +235,12 @@ class ArticlePage extends React.Component {
         };
 
         return (
-            <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            <div>
+                <h5>
+                    Please login to comment:
+                </h5>
+                <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            </div>
         );
     }
 
@@ -246,6 +248,8 @@ class ArticlePage extends React.Component {
 
         const { pathContext: post } = this.props;
         const url = `https://shaunasaservice.com/blog/${post.slug}/`;
+
+        console.log('user', this.state.user);
 
         return (
             <div className="article-page">
@@ -344,24 +348,23 @@ class ArticlePage extends React.Component {
                                     }}
                                 />
                             </div>
-                        </div>
-                        <div className="row comments">
-                            <div className="col-xs-12">
-                                <h4>
-                                    Comments
-                                </h4>
+                            <div className="col-lg-8 col-md-8">
+                                <div className="comments">
+                                    <h4>
+                                        Comments
+                                    </h4>
 
-                                <CommentBox
-                                    usersHaveAvatars={true}
-                                    disabled={!this.state.user}
-                                    getComments={this.getComments}
-                                    normalizeComment={this.normalizeComment}
-                                    comment={this.comment}
-                                    reply={this.reply}
-                                    flag={this.flag}
-                                    disabledComponent={this.disabledComponent}
-                                />
-
+                                    <CommentBox
+                                        usersHaveAvatars={true}
+                                        disabled={!this.state.user}
+                                        getComments={this.getComments}
+                                        normalizeComment={this.normalizeComment}
+                                        comment={this.comment}
+                                        reply={this.reply}
+                                        flag={this.flag}
+                                        disabledComponent={this.disabledComponent}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
