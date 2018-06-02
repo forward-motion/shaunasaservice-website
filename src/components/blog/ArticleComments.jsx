@@ -273,6 +273,7 @@ class ArticleComments extends React.Component {
                     flagButtonContent={this.props.flagButtonContent}
                     showReplyButtonContent={this.props.showReplyButtonContent}
                     hideReplyButtonContent={this.props.hideReplyButtonContent}
+                    postButtonExtraContent={this.props.postButtonExtraContent}
                 />
             </div>
         );
@@ -288,6 +289,33 @@ class ArticleComments extends React.Component {
             ),
             hideReplyButtonContent: (
                 <span>cancel</span>
+            ),
+            postButtonExtraContent: (
+                <div className="instructions">
+                    <div className="row">
+                        <div className="col-xs-3">
+                            <span className="icon-info2" />
+                        </div>
+                        <div className="col-xs-3 formatting">
+                            <strong>bold</strong>
+                            <p>__text__</p>
+                        </div>
+                        <div className="col-xs-3 formatting">
+                            <i>
+                                italic
+                            </i>
+                            <p>
+                                *text*
+                            </p>
+                        </div>
+                        <div className="col-xs-3 formatting">
+                            <code>code</code>
+                            <p>
+                                ```lang<br />text<br />```
+                            </p>
+                        </div>
+                    </div>
+                </div>
             )
         };
     }

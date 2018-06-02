@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('../../assets/icons/icomoon.eot?1t6mfm');
-    src:  url('../../assets/icons/icomoon.eot?1t6mfm#iefix') format('embedded-opentype'),
-    url('../../assets/icons/icomoon.ttf?1t6mfm') format('truetype'),
-    url('../../assets/icons/icomoon.woff?1t6mfm') format('woff'),
-    url('../../assets/icons/icomoon.svg?1t6mfm#icomoon') format('svg');
+    src:  url('../../assets/icons/icomoon.eot?7d6rmd');
+    src:  url('../../assets/icons/icomoon.eot?7d6rmd#iefix') format('embedded-opentype'),
+    url('../../assets/icons/icomoon.ttf?7d6rmd') format('truetype'),
+    url('../../assets/icons/icomoon.woff?7d6rmd') format('woff'),
+    url('../../assets/icons/icomoon.svg?7d6rmd#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -50,6 +50,12 @@
 }
 .icon-thumbs-down3:before {
     content: "\eb46";
+}
+.icon-info:before {
+    content: "\eb8e";
+}
+.icon-info2:before {
+    content: "\eb8f";
 }
 .icon-enter2:before {
     content: "\eb99";

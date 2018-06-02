@@ -119,6 +119,7 @@
 
     .cb-comment-form, .cb-reply-form {
       button {
+        float: left;
         margin-top: 15px;
         background: rgb(108, 99, 255);
         color: white;
@@ -127,6 +128,9 @@
         border: 0 none;
         padding: 6px 12px;
         font-size: 14px;
+        @media (max-width: 767px) {
+          float: none;
+        }
         &:hover {
           background-color: rgb(77, 182, 172);
           color: white;
@@ -172,6 +176,30 @@
       color: lightgray;
       .cb-flag {
         display: none;
+      }
+    }
+    .instructions {
+      display: inline-block;
+      padding-left: 15px;
+      margin-top: 20px;
+      @media (max-width: 767px) {
+        display: none;
+      }
+      .formatting {
+        display: none;
+        font-size: 12px;
+        text-align: center;
+      }
+      p {
+        margin-bottom: -25px;
+      }
+      &:hover {
+        span {
+          color: rgb(77, 182, 172);
+        }
+        .formatting {
+          display: block;
+        }
       }
     }
   }
