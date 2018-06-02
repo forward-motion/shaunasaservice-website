@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 
 # install npm modules
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm install
 
 # copy the source files from host to container
 COPY . /usr/src/app

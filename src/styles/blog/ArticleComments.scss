@@ -1,0 +1,228 @@
+.article-comments {
+  width: 100%;
+
+  .titles {
+    width: 100%;
+    max-width: 500px;
+    padding-bottom: 5px;
+  }
+
+  .title {
+    padding-bottom: 10px;
+    @media (min-width: 768px) {
+      height: 50px;
+      line-height: 50px;
+      padding-bottom: 0;
+    }
+  }
+
+  .logout {
+    text-align: right;
+
+    @media (max-width: 767px) {
+      text-align: left;
+    }
+
+    button {
+      box-shadow: none;
+      border: 0 none;
+      background: none;
+      padding: 0;
+      span {
+        color: rgb(108, 99, 255);
+      }
+      &:hover {
+        span {
+          color: rgb(77, 182, 172);
+        }
+      }
+    }
+  }
+  .commentbox {
+
+    textarea, .firebaseui-container {
+      width: 100%;
+      max-width: 500px;
+    }
+    textarea:disabled {
+      background: gainsboro;
+      border: 0 none;
+    }
+
+    ul.cb-comments, ul.cb-replies {
+
+      padding: 0;
+      margin: 0;
+
+      li.cb-comment-and-replies {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        padding-top: 25px;
+        &.cb-replying-to {
+
+        }
+
+        .cb-comment-footer {
+
+          padding-bottom: 15px;
+          .cb-user-avatar {
+            width: 25px;
+          }
+
+          .cb-user-name {
+            padding-left: 10px;
+          }
+
+          .cb-timestamp {
+
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+
+    .cb-header, .cb-form-wrapper {
+      position: relative;
+      padding-bottom: 15px;
+
+      > div {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin-top: -15px;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+        h5 {
+          padding-bottom: 10px;
+        }
+      }
+    }
+
+    .cb-header {
+      > div {
+        margin-top: -30px;
+      }
+    }
+
+    .cb-header {
+      padding-bottom: 30px;
+    }
+
+    .cb-body {
+      border-top: 1px solid lightgray;
+      padding-top: 15px;
+    }
+
+    .cb-comment-form, .cb-reply-form {
+      button {
+        margin-top: 15px;
+        background: rgb(108, 99, 255);
+        color: white;
+        box-shadow: none;
+        transition: background-color 150ms;
+        border: 0 none;
+        padding: 6px 12px;
+        font-size: 14px;
+        &:hover {
+          background-color: rgb(77, 182, 172);
+          color: white;
+        }
+      }
+    }
+    .cb-comment-body {
+      padding-bottom: 5px;
+    }
+    .cb-comment-footer {
+      font-size: 12px;
+      span {
+        color: black;
+      }
+      button {
+        box-shadow: none;
+        border: 0 none;
+        background: none;
+        color: rgb(108, 99, 255);
+        span {
+          color: rgb(108, 99, 255);
+        }
+        &:hover {
+          color: rgb(77, 182, 172);
+          span {
+            color: rgb(77, 182, 172);
+          }
+        }
+        &:disabled {
+          cursor: not-allowed;
+          span {
+            color: rgb(77, 182, 172);
+          }
+        }
+      }
+    }
+    .cb-comment.cb-belongs-to-author {
+      .cb-user-name {
+        color: rgb(77, 182, 172);
+      }
+    }
+    .cb-comment.cb-flagged {
+      color: lightgray;
+      .cb-flag {
+        display: none;
+      }
+    }
+  }
+
+  .firebaseui-container {
+    overflow: visible;
+    max-width: 100%;
+
+    span {
+      color: #fff;
+    }
+    .firebaseui-card-content {
+      padding: 0;
+    }
+    .firebaseui-idp-google > .firebaseui-idp-text {
+      color: #757575;
+    }
+    .firebaseui-idp-list {
+      width: 100%;
+      text-align: right;
+
+      @media (max-width: 767px) {
+        text-align: left;
+      }
+
+      li {
+        display: inline;
+        list-style-type: none;
+        width: 33%;
+        margin-left: 10px;
+
+        @media (max-width: 767px) {
+          margin-left: 0;
+          margin-right: 10px;
+        }
+
+        .mdl-button {
+          border-radius: 0;
+        }
+        .firebaseui-idp-button {
+          width: auto;
+          min-height: 35px;
+          margin-top: 10px;
+          .firebaseui-idp-text {
+            display: none;
+          }
+          .firebaseui-idp-icon-wrapper {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+}

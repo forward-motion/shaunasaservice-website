@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('../../assets/icons/icomoon.eot?e35dqb');
-    src:  url('../../assets/icons/icomoon.eot?e35dqb#iefix') format('embedded-opentype'),
-    url('../../assets/icons/icomoon.ttf?e35dqb') format('truetype'),
-    url('../../assets/icons/icomoon.woff?e35dqb') format('woff'),
-    url('../../assets/icons/icomoon.svg?e35dqb#icomoon') format('svg');
+    src:  url('../../assets/icons/icomoon.eot?1t6mfm');
+    src:  url('../../assets/icons/icomoon.eot?1t6mfm#iefix') format('embedded-opentype'),
+    url('../../assets/icons/icomoon.ttf?1t6mfm') format('truetype'),
+    url('../../assets/icons/icomoon.woff?1t6mfm') format('woff'),
+    url('../../assets/icons/icomoon.svg?1t6mfm#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,6 +29,30 @@
 }
 .icon-envelop2:before {
     content: "\e9f1";
+}
+.icon-bubbles3:before {
+    content: "\ea41";
+}
+.icon-flag3:before {
+    content: "\eb18";
+}
+.icon-flag4:before {
+    content: "\eb19";
+}
+.icon-thumbs-up2:before {
+    content: "\eb42";
+}
+.icon-thumbs-down2:before {
+    content: "\eb44";
+}
+.icon-thumbs-up3:before {
+    content: "\eb45";
+}
+.icon-thumbs-down3:before {
+    content: "\eb46";
+}
+.icon-enter2:before {
+    content: "\eb99";
 }
 .icon-facebook:before {
     content: "\ec5c";
