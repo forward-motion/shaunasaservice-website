@@ -213,7 +213,7 @@ class ArticleComments extends React.Component {
                 <div className="titles">
                     <div className="row">
                         <div className="col-sm-6 col-md-6 col-lg-6">
-                            <h3 className="title">Comments</h3>
+                            <h3 id="comments" className="title">Comments</h3>
                         </div>
                         <div className="col-sm-6 col-md-6 col-lg-6">
                             <div className="title">
