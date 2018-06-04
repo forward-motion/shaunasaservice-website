@@ -59,7 +59,7 @@ const steps = [
                 <ul>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
-                        <strong>low</strong>: $100+ | 1-2 weeks
+                        <strong>low</strong>: $500+ | 1-2 weeks
                     </li>
                     <li>
                         <span className="glyphicon glyphicon-record" aria-hidden="true" />
