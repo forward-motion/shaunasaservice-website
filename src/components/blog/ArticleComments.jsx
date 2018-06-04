@@ -23,23 +23,7 @@ const timeAgo = new TimeAgo('en-US');
 
 class ArticleComments extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            user: null,
-            idToken: null,
-            loading: false
-        };
-
-        this.getComments = this.getComments.bind(this);
-        this.normalizeComment = this.normalizeComment.bind(this);
-        this.comment = this.comment.bind(this);
-        this.reply = this.reply.bind(this);
-        this.flag = this.flag.bind(this);
-        this.disabledComponent = this.disabledComponent.bind(this);
-        this.authComponent = this.authComponent.bind(this);
-    }
+    state = { user: null, idToken: null, loading: false };
 
     componentDidMount() {
 
@@ -60,8 +44,9 @@ class ArticleComments extends React.Component {
                     idToken = firebaseIdToken;
 
                     return contentfulClient.getEntries({
+                        'order': 'sys.createdAt',
                         'content_type': 'commentAuthor',
-                        'sys.id': user.uid
+                        'fields.userId': user.uid
                     });
 
                 }).then(response => {
@@ -97,24 +82,24 @@ class ArticleComments extends React.Component {
         this.unregisterAuthObserver();
     }
 
-    getComments() {
+    getComments = () => {
 
         return contentfulClient.getEntries({
             'order': 'sys.createdAt',
             'content_type': 'comment',
-            'fields.blogPost.sys.id': this.props.blogPostId,
+            'fields.subject': this.props.blogPostId,
             'include': 2
         }).then((response) => {
 
             return response.items;
 
         }).catch(console.error);
-    }
+    };
 
-    normalizeComment(comment) {
+    normalizeComment = (comment) => {
 
         const { id, createdAt } = comment.sys;
-        const { body, author, parentComment, flagged } = comment.fields;
+        const { body, author, parentComment } = comment.fields;
 
         const html = marked(body, {
             breaks: true
@@ -133,7 +118,6 @@ class ArticleComments extends React.Component {
 
         return {
             id,
-            flagged,
             bodyDisplay: (
                 <div
                     dangerouslySetInnerHTML={{
@@ -145,49 +129,27 @@ class ArticleComments extends React.Component {
             userNameDisplay: author.fields.displayName || 'Unnamed Commenter',
             userAvatarUrl: author.fields.avatarUrl,
             timestampDisplay: timeAgo.format(new Date(createdAt)),
-            belongsToAuthor: this.state.user ? (this.state.user.uid === author.sys.id) : false,
+            belongsToAuthor: this.state.user ? (this.state.user.uid === author.fields.userId) : false,
             parentCommentId: parentComment ? parentComment.sys.id : null
         };
-    }
+    };
 
-    comment(body) {
-
-        this.setState({ loading: true });
-
-        return request.post('/.netlify/functions/create-comment').send({
-            body,
-            blogPostId: this.props.blogPostId,
-            idToken: this.state.idToken
-        }).then(() => {
-
-            this.setState({ loading: false });
-        });
-    }
-
-    reply(body, parentCommentId) {
+    comment = (body, parentCommentId) => {
 
         this.setState({ loading: true });
 
         return request.post('/.netlify/functions/create-comment').send({
             body,
             parentCommentId,
-            blogPostId: this.props.blogPostId,
+            subjectId: this.props.blogPostId,
             idToken: this.state.idToken
         }).then(() => {
 
             this.setState({ loading: false });
         });
-    }
+    };
 
-    flag(commentId) {
-
-        return request.post('/.netlify/functions/flag-comment').send({
-            commentId,
-            idToken: this.state.idToken
-        });
-    }
-
-    disabledComponent() {
+    disabledComponent = () => {
 
         if (this.state.loading) {
             return (
@@ -206,9 +168,9 @@ class ArticleComments extends React.Component {
                 </h5>
             </div>
         );
-    }
+    };
 
-    authComponent() {
+    authComponent = () => {
 
         if (this.state.user) {
 
@@ -238,11 +200,11 @@ class ArticleComments extends React.Component {
         return (
             <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
         );
-    }
+    };
 
-    logout(e) {
+    logout = (e) => {
         firebase.auth().signOut();
-    }
+    };
 
     render() {
 
@@ -263,14 +225,12 @@ class ArticleComments extends React.Component {
 
                 <CommentBox
                     usersHaveAvatars={true}
+                    levelPadding={50}
                     disabled={!this.state.user || this.state.loading}
                     getComments={this.getComments}
                     normalizeComment={this.normalizeComment}
                     comment={this.comment}
-                    reply={this.reply}
-                    flag={this.flag}
                     disabledComponent={this.disabledComponent}
-                    flagButtonContent={this.props.flagButtonContent}
                     showReplyButtonContent={this.props.showReplyButtonContent}
                     hideReplyButtonContent={this.props.hideReplyButtonContent}
                     postButtonExtraContent={this.props.postButtonExtraContent}
@@ -281,9 +241,6 @@ class ArticleComments extends React.Component {
 
     static get defaultProps() {
         return {
-            flagButtonContent: (
-                <span>flag</span>
-            ),
             showReplyButtonContent: (
                 <span>reply</span>
             ),
@@ -293,14 +250,16 @@ class ArticleComments extends React.Component {
             postButtonExtraContent: (
                 <div className="instructions">
                     <div className="row">
-                        <div className="col-xs-3">
+                        <div className="col-xs-12">
                             <span className="icon-info2" />
                         </div>
-                        <div className="col-xs-3 formatting">
+                    </div>
+                    <div className="row formatting">
+                        <div className="col-xs-4">
                             <strong>bold</strong>
                             <p>__text__</p>
                         </div>
-                        <div className="col-xs-3 formatting">
+                        <div className="col-xs-4">
                             <i>
                                 italic
                             </i>
@@ -308,7 +267,7 @@ class ArticleComments extends React.Component {
                                 *text*
                             </p>
                         </div>
-                        <div className="col-xs-3 formatting">
+                        <div className="col-xs-4">
                             <code>code</code>
                             <p>
                                 ```lang<br />text<br />```

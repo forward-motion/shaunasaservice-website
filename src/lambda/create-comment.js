@@ -1,80 +1,20 @@
-const client = require('../utils/contentfulAdminClient');
-const admin = require('../utils/firebaseAdmin');
+const createComment = require('../utils/createComment');
 
+exports.handler = function (event, context, callback) {
 
-exports.handler = function createComment(event, context, callback) {
+    const { idToken, body, subjectId, parentCommentId } = JSON.parse(event.body);
 
-    const headers = {
-        'Content-Type': 'text/html'
-    };
-
-    const { idToken, body, blogPostId, parentCommentId } = JSON.parse(event.body);
-    let authorId = null;
-
-    admin.auth().verifyIdToken(idToken)
-        .then(({ uid }) => {
-
-            authorId = uid;
-            return client.getSpace(process.env.GATSBY_CONTENTFUL_SPACE_ID);
-        })
-        .then(space => space.getEnvironment('master'))
-        .then(environment => environment.createEntry('comment', {
-            fields: {
-                body: {
-                    'en-US': body
-                },
-                author: {
-                    'en-US': {
-                        sys: {
-                            type: 'Link',
-                            linkType: 'Entry',
-                            id: authorId
-                        }
-                    }
-                },
-                blogPost: {
-                    'en-US': {
-                        sys: {
-                            type: 'Link',
-                            linkType: 'Entry',
-                            id: blogPostId
-                        }
-                    }
-                },
-                parentComment: {
-                    'en-US': {
-                        sys: {
-                            type: 'Link',
-                            linkType: 'Entry',
-                            id: parentCommentId
-                        }
-                    }
-                }
-            }
-        }))
-        .then(entry => entry.publish())
+    createComment(idToken, body, subjectId, parentCommentId)
         .then(() => {
 
             callback(null, {
-                headers,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 statusCode: 200,
-                body: 'OK'
+                body: JSON.stringify({ message: 'OK' })
             });
         })
-        .catch(function() {
-
-            if (!authorId) {
-                return callback(null, {
-                    headers,
-                    statusCode: 401,
-                    body: 'Error'
-                });
-            }
-            callback(null, {
-                headers,
-                statusCode: 400,
-                body: 'Error'
-            });
-        });
+        .catch(callback);
 };
 
