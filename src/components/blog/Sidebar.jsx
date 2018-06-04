@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import request from 'superagent';
+import request from 'axios';
 
 import Contact from '../_global/ui/Contact.jsx';
 
@@ -52,8 +52,7 @@ class Sidebar extends React.Component {
                 api_key: process.env.GATSBY_CONVERTKIT_API_KEY
             };
 
-            request.post(`https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`)
-                .send(data)
+            request.post(`https://api.convertkit.com/v3/forms/${process.env.GATSBY_CONVERTKIT_FORM_ID}/subscribe`, data)
                 .then(res => {
 
                     this.setState({ submitState: STATE_SUBMITTED });

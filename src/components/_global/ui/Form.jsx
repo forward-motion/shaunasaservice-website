@@ -1,5 +1,6 @@
 import React from 'react';
-import request from 'superagent';
+import request from 'axios';
+import qs  from 'qs';
 import thanks from '../../../assets/img/thanks.svg';
 
 import '../../../styles/_global/ui/Form.scss';
@@ -55,9 +56,7 @@ class Form extends React.Component {
                         ['form-name']: this.props.formName
                     };
 
-                    request.post('/')
-                        .type('form')
-                        .send(data)
+                    request.post('/', qs.stringify(data))
                         .then(res => {
                             this.setState({ submitState: STATE_SUBMITTED }, () => {
 

@@ -14,7 +14,7 @@ import {
 } from 'react-share';
 
 import Sidebar from './Sidebar.jsx';
-import ArticleComments from './ArticleComments.jsx';
+// import ArticleComments from './ArticleComments.jsx';
 
 import 'prismjs/themes/prism.css'
 import '../../styles/blog/ArticlePage.scss';
@@ -168,7 +168,7 @@ class ArticlePage extends React.Component {
                                 />
                             </div>
                             <div className="col-lg-8 col-md-8">
-                                <ArticleComments blogPostId={post.contentful_id} />
+                                {/*<ArticleComments blogPostId={post.contentful_id} />*/}
                             </div>
                         </div>
                     </div>

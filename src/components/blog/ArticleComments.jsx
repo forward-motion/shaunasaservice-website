@@ -4,7 +4,7 @@ import CommentBox from 'react-commentbox';
 import FirebaseAuth from 'react-firebaseui/FirebaseAuth';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-import request from 'superagent';
+import request from 'axios';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';
 import linkifyHtml from 'linkifyjs/html';
@@ -138,7 +138,7 @@ class ArticleComments extends React.Component {
 
         this.setState({ loading: true });
 
-        return request.post('/.netlify/functions/create-comment').send({
+        return request.post('/.netlify/functions/create-comment', {
             body,
             parentCommentId,
             subjectId: this.props.blogPostId,
