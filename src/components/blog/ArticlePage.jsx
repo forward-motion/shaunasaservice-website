@@ -73,34 +73,20 @@ class ArticlePage extends React.Component {
         return (
             <div className="article-page">
 
-                <Helmet
-                    title={`Shaun (as a service) - ${post.title}`}
-                    meta={[
-                        { name: 'description', content: post.summary },
-                        {
-                            name: 'og:url', content: url
-                        },
-                        {
-                            name: 'og:title', content: post.title
-                        },
-                        {
-                            name: 'og:description', content: post.summary
-                        },
-                        {
-                            name: 'og:image', content: post.hero ? post.hero.file.url : ''
-                        },
-                        {
-                            name: 'twitter:title', content: post.title
-                        },
-                        {
-                            name: 'twitter:description', content: post.summary
-                        },
-                        {
-                            name: 'twitter:image', content: post.hero ? post.hero.file.url : ''
-                        }
-                    ]}
-                >
-                    
+                <Helmet>
+
+                    <title>Shaun (as a service) - {post.title}</title>
+                    <meta property="description" content={post.summary} />
+
+                    <meta property="og:title" content={post.title} />
+                    <meta property="og:url" content={url} />
+                    <meta property="og:description" content={post.summary} />
+                    <meta property="og:image" content={post.hero ? post.hero.file.url : ''} />
+
+                    <meta name="twitter:title" content={post.title} />
+                    <meta name="twitter:description" content={post.summary} />
+                    <meta name="twitter:image" content={post.hero ? post.hero.file.url : ''} />
+
                 </Helmet>
 
                 <div
