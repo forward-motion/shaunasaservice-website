@@ -182,17 +182,30 @@ class BlogPage extends React.Component {
                     title="Shaun (as a service) - You think it, I build it."
                     meta={[
                         { name: 'description', content: `Thoughts on coding, product development, and indie hacking.` },
+                        { name: 'keywords', content: 'mvp, consulting, freelancer, developer, blog' },
+                        {
+                            name: 'og:url', content: 'https://shaunasaservice.com/blog/'
+                        },
+                        {
+                            name: 'og:title', content: 'Shaun (as a service) - Blog'
+                        },
+                        {
+                            name: 'og:description', content: `Thoughts on coding, product development, and indie hacking.`
+                        },
+                        {
+                            name: 'og:image', content: 'https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png'
+                        },
+                        {
+                            name: 'twitter:title', content: 'Shaun (as a service) - Blog'
+                        },
+                        {
+                            name: 'twitter:description', content: `Thoughts on coding, product development, and indie hacking.`
+                        },
+                        {
+                            name: 'twitter:image', content: 'https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png'
+                        }
                     ]}
                 >
-
-                    <meta property="og:title" content="Shaun (as a service) - Blog" />
-                    <meta property="og:url" content="https://shaunasaservice.com/blog/" />
-                    <meta property="og:description" content={`Thoughts on coding, product development, and indie hacking.`} />
-                    <meta property="og:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
-
-                    <meta name="twitter:title" content="Shaun (as a service) - Blog" />
-                    <meta name="twitter:description" content={`Thoughts on coding, product development, and indie hacking.`} />
-                    <meta name="twitter:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable-blog.png" />
 
                 </Helmet>
 
