@@ -106,50 +106,50 @@ class ArticlePage extends React.Component {
                                 <h4>
                                     {post.summary}
                                 </h4>
+                                <ul className="share-buttons">
+                                    <li>
+                                        <FacebookShareButton url={url}>
+                                            <span className="icon-facebook" />
+                                        </FacebookShareButton>
+                                    </li>
+                                    <li>
+                                        <TwitterShareButton url={url}>
+                                            <span className="icon-twitter" />
+                                        </TwitterShareButton>
+                                    </li>
+                                    <li>
+                                        <LinkedinShareButton url={url}>
+                                            <span className="icon-linkedin2" />
+                                        </LinkedinShareButton>
+                                    </li>
+                                    <li>
+                                        <RedditShareButton url={url}>
+                                            <span className="icon-reddit" />
+                                        </RedditShareButton>
+                                    </li>
+                                    <li>
+                                        <TelegramShareButton url={url}>
+                                            <span className="icon-telegram" />
+                                        </TelegramShareButton>
+                                    </li>
+                                    <li>
+                                        <WhatsappShareButton url={url}>
+                                            <span className="icon-whatsapp" />
+                                        </WhatsappShareButton>
+                                    </li>
+                                    <li>
+                                        <EmailShareButton url={url}>
+                                            <span className="icon-envelop2" />
+                                        </EmailShareButton>
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <Sidebar underFold={this.state.underFold}>
-
-                    <ul className="share-buttons">
-                        <li>
-                            <FacebookShareButton url={url}>
-                                <span className="icon-facebook" />
-                            </FacebookShareButton>
-                        </li>
-                        <li>
-                            <TwitterShareButton url={url}>
-                                <span className="icon-twitter" />
-                            </TwitterShareButton>
-                        </li>
-                        <li>
-                            <LinkedinShareButton url={url}>
-                                <span className="icon-linkedin2" />
-                            </LinkedinShareButton>
-                        </li>
-                        <li>
-                            <RedditShareButton url={url}>
-                                <span className="icon-reddit" />
-                            </RedditShareButton>
-                        </li>
-                        <li>
-                            <TelegramShareButton url={url}>
-                                <span className="icon-telegram" />
-                            </TelegramShareButton>
-                        </li>
-                        <li>
-                            <WhatsappShareButton url={url}>
-                                <span className="icon-whatsapp" />
-                            </WhatsappShareButton>
-                        </li>
-                        <li>
-                            <EmailShareButton url={url}>
-                                <span className="icon-envelop2" />
-                            </EmailShareButton>
-                        </li>
-                    </ul>
 
                 </Sidebar>
 
