@@ -9,13 +9,10 @@ module.exports = function updateCommentAuthor(idToken) {
     return getAuthor(idToken)
         .then(({ author }) => {
 
-            console.log('author', author);
             commentAuthor = author;
-            return admin.auth().getUser(author.fields.userId);
+            return admin.auth().getUser(author.fields.userId['en-US']);
         })
         .then(user => {
-
-            console.log('user', user);
 
             commentAuthor.fields.displayName = {
                 'en-US': user.displayName
