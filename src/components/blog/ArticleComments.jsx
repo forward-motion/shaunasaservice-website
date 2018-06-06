@@ -257,7 +257,7 @@ class ArticleComments extends React.Component {
                     <div className="row formatting">
                         <div className="col-xs-4">
                             <strong>bold</strong>
-                            <p>__text__</p>
+                            <p>**text**</p>
                         </div>
                         <div className="col-xs-4">
                             <i>
