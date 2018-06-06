@@ -57,10 +57,10 @@ class ArticleComments extends React.Component {
                             return user;
                         }
 
-                        return request.post('/.netlify/functions/update-comment-author').send({ idToken });
+                        return request.post('/.netlify/functions/update-comment-author', { idToken });
                     }
 
-                    return request.post('/.netlify/functions/create-comment-author').send({ idToken });
+                    return request.post('/.netlify/functions/create-comment-author', { idToken });
 
                 }).then(() => {
 
