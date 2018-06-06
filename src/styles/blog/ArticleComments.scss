@@ -233,6 +233,21 @@
     }
     .firebaseui-card-content {
       padding: 0;
+      h2 {
+        padding-left: 24px;
+        padding-right: 24px;
+        font-size: 16px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+    .firebaseui-card-actions {
+      .firebaseui-button {
+        margin-left: 0;
+      }
     }
     .firebaseui-idp-google > .firebaseui-idp-text {
       color: #757575;
