@@ -255,11 +255,11 @@ class ArticleComments extends React.Component {
                         </div>
                     </div>
                     <div className="row formatting">
-                        <div className="col-xs-4">
+                        <div className="col-xs-3">
                             <strong>bold</strong>
                             <p>**text**</p>
                         </div>
-                        <div className="col-xs-4">
+                        <div className="col-xs-3">
                             <i>
                                 italic
                             </i>
@@ -267,8 +267,14 @@ class ArticleComments extends React.Component {
                                 *text*
                             </p>
                         </div>
-                        <div className="col-xs-4">
+                        <div className="col-xs-3">
                             <code>code</code>
+                            <p>
+                                `text`
+                            </p>
+                        </div>
+                        <div className="col-xs-3">
+                            <code>block</code>
                             <p>
                                 ```lang<br />text<br />```
                             </p>
