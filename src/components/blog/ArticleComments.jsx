@@ -53,7 +53,8 @@ class ArticleComments extends React.Component {
 
                     if (response.items.length) {
                         const commentAuthor = response.items[0].fields;
-                        if (commentAuthor.displayName === user.displayName && commentAuthor.avatarUrl === user.photoURL) {
+                        if (commentAuthor.displayName === user.displayName &&
+                            commentAuthor.avatarUrl === user.photoURL) {
                             return user;
                         }
 
