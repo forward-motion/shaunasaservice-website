@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CommentBox from 'react-commentbox';
-import FirebaseAuth from 'react-firebaseui/FirebaseAuth';
+import firebase from 'firebase/app';
+// import FirebaseAuth from 'react-firebaseui/FirebaseAuth';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import request from 'axios';
@@ -11,7 +12,6 @@ import linkifyHtml from 'linkifyjs/html';
 import Prism from 'prismjs';
 
 import contentfulClient from '../../utils/contentfulClient';
-import firebase from '../../utils/firebase';
 
 import 'prismjs/themes/prism.css'
 import '../../styles/blog/ArticleComments.scss';
@@ -21,66 +21,79 @@ TimeAgo.locale(en);
 
 const timeAgo = new TimeAgo('en-US');
 
+const config = {
+    apiKey: process.env.GATSBY_FIREBASE_API_KEY,
+    authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.GATSBY_FIREBASE_DATABASE_URL,
+    projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.GATSBY_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.GATSBY_FIREBASE_MESSAGING_SENDER_ID
+};
+
 class ArticleComments extends React.Component {
 
     state = { user: null, idToken: null, loading: false };
 
     componentDidMount() {
 
-        let user = null;
-        let idToken = null;
+        if (typeof window !== 'undefined') {
+            // firebase.initializeApp(config);
+        }
 
-        this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(firebaseUser => {
-
-            if (firebaseUser) {
-
-                this.setState({
-                    loading: true
-                });
-
-                user = firebaseUser;
-                user.getIdToken().then(firebaseIdToken => {
-
-                    idToken = firebaseIdToken;
-
-                    return contentfulClient.getEntries({
-                        'order': 'sys.createdAt',
-                        'content_type': 'commentAuthor',
-                        'fields.userId': user.uid
-                    });
-
-                }).then(response => {
-
-                    if (response.items.length) {
-                        const commentAuthor = response.items[0].fields;
-                        if (commentAuthor.displayName === user.displayName &&
-                            commentAuthor.avatarUrl === user.photoURL) {
-                            return user;
-                        }
-
-                        return request.post('/.netlify/functions/update-comment-author', { idToken });
-                    }
-
-                    return request.post('/.netlify/functions/create-comment-author', { idToken });
-
-                }).then(() => {
-
-                    this.setState({ user, idToken, loading: false });
-                }).catch((err) => {
-                    console.error(err);
-                    this.setState({ loading: false });
-                });
-
-            } else {
-
-                this.setState({ user: null, idToken: null });
-            }
-        });
+        // let user = null;
+        // let idToken = null;
+        //
+        // this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(firebaseUser => {
+        //
+        //     if (firebaseUser) {
+        //
+        //         this.setState({
+        //             loading: true
+        //         });
+        //
+        //         user = firebaseUser;
+        //         user.getIdToken().then(firebaseIdToken => {
+        //
+        //             idToken = firebaseIdToken;
+        //
+        //             return contentfulClient.getEntries({
+        //                 'order': 'sys.createdAt',
+        //                 'content_type': 'commentAuthor',
+        //                 'fields.userId': user.uid
+        //             });
+        //
+        //         }).then(response => {
+        //
+        //             if (response.items.length) {
+        //                 const commentAuthor = response.items[0].fields;
+        //                 if (commentAuthor.displayName === user.displayName &&
+        //                     commentAuthor.avatarUrl === user.photoURL) {
+        //                     return user;
+        //                 }
+        //
+        //                 return request.post('/.netlify/functions/update-comment-author', { idToken });
+        //             }
+        //
+        //             return request.post('/.netlify/functions/create-comment-author', { idToken });
+        //
+        //         }).then(() => {
+        //
+        //             this.setState({ user, idToken, loading: false });
+        //         }).catch((err) => {
+        //             console.error(err);
+        //             this.setState({ loading: false });
+        //         });
+        //
+        //     } else {
+        //
+        //         this.setState({ user: null, idToken: null });
+        //     }
+        // });
     }
 
     componentWillUnmount() {
 
-        this.unregisterAuthObserver();
+        // this.unregisterAuthObserver();
     }
 
     getComments = () => {
@@ -173,38 +186,40 @@ class ArticleComments extends React.Component {
 
     authComponent = () => {
 
-        if (this.state.user) {
+        return (<div>hey</div>);
 
-            return (
-                <div className="logout">
-                    <button onClick={this.logout}>
-                        <span>
-                        {`Logout ${this.state.user.displayName ? this.state.user.displayName : 'Unnamed Commenter'}`}
-                        </span>
-                    </button>
-                </div>
-            );
-        }
-
-        const uiConfig = {
-            signInFlow: 'popup',
-            signInOptions: [
-                firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            ],
-            callbacks: {
-                signInSuccess: () => false
-            }
-        };
-
-        return (
-            <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-        );
+        // if (this.state.user) {
+        //
+        //     return (
+        //         <div className="logout">
+        //             <button onClick={this.logout}>
+        //                 <span>
+        //                 {`Logout ${this.state.user.displayName ? this.state.user.displayName : 'Unnamed Commenter'}`}
+        //                 </span>
+        //             </button>
+        //         </div>
+        //     );
+        // }
+        //
+        // const uiConfig = {
+        //     signInFlow: 'popup',
+        //     signInOptions: [
+        //         firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        //         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //     ],
+        //     callbacks: {
+        //         signInSuccess: () => false
+        //     }
+        // };
+        //
+        // return (
+        //     <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        // );
     };
 
     logout = (e) => {
-        firebase.auth().signOut();
+        // firebase.auth().signOut();
     };
 
     render() {
