@@ -17,6 +17,9 @@ const Header = (props) => {
                     <li>
                         <Link activeClassName="active" to="/blog">Blog</Link>
                     </li>
+                    <li>
+                        <a target="_blank" href="/shaun-persad-resume.pdf">Resume</a>
+                    </li>
                 </ul>
             </div>
         </div>
