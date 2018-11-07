@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'axios';
 import qs  from 'qs';
+import ReCAPTCHA from 'react-google-recaptcha';
 import thanks from '../../../assets/img/thanks.svg';
 
 import '../../../styles/_global/ui/Form.scss';
@@ -19,6 +20,7 @@ class Form extends React.Component {
             email: '',
             description: '',
             bot: '',
+            re: '',
             errors: {
                 name: false,
                 email: false,
@@ -31,6 +33,9 @@ class Form extends React.Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeBot = this.onChangeBot.bind(this);
+        this.onChangeRe = this.onChangeRe.bind(this);
+
     }
 
     componentDidMount() {
@@ -55,7 +60,8 @@ class Form extends React.Component {
                         email: this.state.email,
                         description: this.state.description,
                         ['form-name']: this.props.formName,
-                        ['bot-field']: this.state.bot
+                        ['bot-field']: this.state.bot,
+                        ['g-recaptcha-response']: this.state.re
                     };
 
                     request.post('/', qs.stringify(data))
@@ -84,6 +90,10 @@ class Form extends React.Component {
 
     onChangeBot(e) {
         this.setState({ bot: e.currentTarget.value });
+    }
+
+    onChangeRe() {
+        this.setState({ re: e.currentTarget.value });
     }
 
     validate(callback) {
@@ -217,10 +227,16 @@ class Form extends React.Component {
                     name={this.props.formName}
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
+                    data-netlify-recaptcha="true"
                     onSubmit={this.onSubmit}
                 >
                     <input className="hidden" name="bot-field" value={this.state.bot} onChange={this.onChangeBot} />
-                    <div data-netlify-recaptcha />
+                    <div>
+                        <ReCAPTCHA
+                            sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
+                            onChange={this.onChangeRe}
+                        />
+                    </div>
 
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>

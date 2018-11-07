@@ -29,6 +29,7 @@
     "qs": "^6.5.2",
     "react-commentbox": "^3.0.1",
     "react-firebaseui": "^1.2.3",
+    "react-google-recaptcha": "^1.0.4",
     "react-helmet": "^5.2.0",
     "react-share": "^2.1.1",
     "react-tweet-embed": "^1.1.0",
