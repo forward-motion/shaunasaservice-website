@@ -217,10 +217,11 @@ class Form extends React.Component {
                     name={this.props.formName}
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    data-netlify-recaptcha="true"
                     onSubmit={this.onSubmit}
                 >
                     <input className="hidden" name="bot-field" value={this.state.bot} onChange={this.onChangeBot} />
+                    <div data-netlify-recaptcha />
+
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
