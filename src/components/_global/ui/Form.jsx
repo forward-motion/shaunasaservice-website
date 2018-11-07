@@ -44,7 +44,7 @@ class Form extends React.Component {
 
         this.validate((isValid) => {
 
-            if (isValid) {
+            if (isValid && !this.state.bot) {
 
                 this.setState({
                     submitState: STATE_SUBMITTING
