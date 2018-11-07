@@ -213,7 +213,7 @@ class Form extends React.Component {
                     data-netlify-honeypot="bot-field"
                     onSubmit={this.onSubmit}
                 >
-                    <input className="hidden" name="bot-field" defaultValue="" />
+                    <input className="hidden" name="bot-field" defaultValue="i am a robot" />
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
