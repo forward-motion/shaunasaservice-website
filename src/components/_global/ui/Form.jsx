@@ -187,7 +187,7 @@ class Form extends React.Component {
                 </div>
                 <div className="col-xs-12">
                     {this.descriptionField}
-                    <div className="form-group">
+                    <div className={`form-group ${this.state.description ? '' : 'hidden'}`}>
                         <ReCAPTCHA
                             sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
                             onChange={this.onChangeRe}
@@ -212,7 +212,7 @@ class Form extends React.Component {
                 {this.nameField}
                 {this.emailField}
                 {this.descriptionField}
-                <div className="form-group">
+                <div className={`form-group ${this.state.description ? '' : 'hidden'}`}>
                     <ReCAPTCHA
                         sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
                         onChange={this.onChangeRe}
