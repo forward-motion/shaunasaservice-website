@@ -46,6 +46,7 @@ const DefaultTemplate = (props) => {
                 <meta name="twitter:description" content={`Send me your product idea, and I'll build you a prototype in 30 days or less.`} />
                 <meta name="twitter:image" content="https://shaunasaservice.com/shaun-as-a-service-shareable.png" />
 
+                <script src='https://www.google.com/recaptcha/api.js'></script>
             </Helmet>
 
 
