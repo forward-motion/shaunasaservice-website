@@ -13,10 +13,10 @@ const Header = (props) => {
                     <li>
                         <Link activeClassName="active" exact to="/">Shaun (<span>as a service</span>)</Link>
                     </li>
-                    <li>|</li>
-                    <li>
-                        <Link activeClassName="active" to="/blog">Blog</Link>
-                    </li>
+                    {/*<li>|</li>*/}
+                    {/*<li>*/}
+                        {/*<Link activeClassName="active" to="/blog">Blog</Link>*/}
+                    {/*</li>*/}
                     <li>|</li>
                     <li>
                         <a target="_blank" href="/shaun-persad-resume.pdf">

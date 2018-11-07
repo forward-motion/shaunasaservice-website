@@ -211,7 +211,6 @@ class Form extends React.Component {
                     name={this.props.formName}
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    method="POST"
                     onSubmit={this.onSubmit}
                 >
                     <input className="hidden" name="bot-field" defaultValue="" />
