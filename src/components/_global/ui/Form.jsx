@@ -18,6 +18,7 @@ class Form extends React.Component {
             name: '',
             email: '',
             description: '',
+            bot: '',
             errors: {
                 name: false,
                 email: false,
@@ -53,7 +54,8 @@ class Form extends React.Component {
                         name: this.state.name,
                         email: this.state.email,
                         description: this.state.description,
-                        ['form-name']: this.props.formName
+                        ['form-name']: this.props.formName,
+                        ['bot-field']: this.state.bot
                     };
 
                     request.post('/', qs.stringify(data))
@@ -78,6 +80,10 @@ class Form extends React.Component {
 
     onChangeDescription(e) {
         this.setState({ description: e.currentTarget.value.substring(0, 280) });
+    }
+
+    onChangeBot(e) {
+        this.setState({ bot: e.currentTarget.value });
     }
 
     validate(callback) {
@@ -213,7 +219,7 @@ class Form extends React.Component {
                     data-netlify-honeypot="bot-field"
                     onSubmit={this.onSubmit}
                 >
-                    <input className="hidden" name="bot-field" defaultValue="i am a robot" />
+                    <input className="hidden" name="bot-field" value={this.state.bot} onChange={this.onChangeBot} />
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
 
