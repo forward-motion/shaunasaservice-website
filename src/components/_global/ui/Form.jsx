@@ -187,6 +187,12 @@ class Form extends React.Component {
                 </div>
                 <div className="col-xs-12">
                     {this.descriptionField}
+                    <div className="form-group">
+                        <ReCAPTCHA
+                            sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
+                            onChange={this.onChangeRe}
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="btn"
@@ -206,6 +212,12 @@ class Form extends React.Component {
                 {this.nameField}
                 {this.emailField}
                 {this.descriptionField}
+                <div className="form-group">
+                    <ReCAPTCHA
+                        sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
+                        onChange={this.onChangeRe}
+                    />
+                </div>
                 <button
                     type="submit"
                     className="btn"
@@ -231,12 +243,6 @@ class Form extends React.Component {
                     onSubmit={this.onSubmit}
                 >
                     <input className="hidden" name="bot-field" value={this.state.bot} onChange={this.onChangeBot} />
-                    <div>
-                        <ReCAPTCHA
-                            sitekey="6LeZUnkUAAAAAHvVXcjYYSrCMC0ST6CLzwiUzW3Z"
-                            onChange={this.onChangeRe}
-                        />
-                    </div>
 
                     {this.props.large ? this.largeForm : this.smallForm}
                 </form>
